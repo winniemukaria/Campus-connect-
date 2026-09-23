@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CampusConnect — Find Opportunities</title>
+<style>
+:root{--blue:#1167e8;--navy:#062b63;--bg:#f4f8ff;--text:#16304f;--muted:#6d7d92;--border:#dfe8f4;--green:#0b9b62}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{height:68px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:5}
+.logo{display:flex;align-items:center;gap:9px;font-size:21px;font-weight:800;color:var(--navy)}.mark{width:39px;height:39px;border-radius:11px;background:var(--blue);color:#fff;display:grid;place-items:center}.logo span{color:var(--blue)}
+header img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+.layout{display:flex;min-height:calc(100vh - 68px)}aside{width:225px;background:var(--navy);padding:18px 12px;color:#fff}.nav{width:100%;padding:12px;border:0;background:transparent;color:#dceaff;text-align:left;border-radius:9px;margin:3px 0;cursor:pointer}.nav:hover,.nav.active{background:#0e4e9f;color:#fff}
+main{flex:1;padding:28px;max-width:1250px;margin:auto}.hero{background:linear-gradient(110deg,#062b63,#126ae8);color:white;border-radius:20px;padding:32px;display:flex;justify-content:space-between;align-items:center}.hero h1{font-size:35px;margin:12px 0}.hero img{width:230px;height:165px;object-fit:cover;border-radius:18px}.search{background:white;padding:9px;border-radius:11px;display:flex;gap:8px;max-width:780px}.search input,.search select,.form input,.form textarea{border:1px solid var(--border);border-radius:8px;padding:11px;outline:none}.search input{flex:1}
+button.primary{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:11px 16px;font-weight:700;cursor:pointer}button.secondary{background:#fff;color:var(--blue);border:1px solid #b9d1f5;border-radius:8px;padding:10px 14px;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid var(--border);border-radius:15px;padding:18px;box-shadow:0 5px 18px #0f32640d;margin-bottom:14px}.badge{display:inline-block;background:#e7fff4;color:#08784d;border-radius:99px;padding:5px 9px;font-size:12px;font-weight:700}.muted{color:var(--muted);font-size:13px}.match{color:var(--green);font-weight:800}.actions{display:flex;gap:8px;margin-top:14px}.hidden{display:none}.section{margin-top:24px}.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px}.stat b{display:block;font-size:24px;margin-top:5px}.auth{max-width:520px;margin:50px auto}.form{display:grid;gap:10px}.form label{font-size:13px;font-weight:700}.toast{position:fixed;right:20px;bottom:20px;background:#062b63;color:#fff;padding:13px 17px;border-radius:10px;display:none;z-index:20}
+@media(max-width:850px){aside{display:none}.grid{grid-template-columns:1fr 1fr}.statgrid{grid-template-columns:1fr 1fr}.hero img{display:none}}@media(max-width:560px){main{padding:15px}.grid{grid-template-columns:1fr}.search{flex-direction:column}.hero h1{font-size:27px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><div class="mark">C</div><div>Campus<span>Connect</span><small style="display:block;font-size:8px;color:#71829a">Find Opportunities. Build Experience. Start Your Career.</small></div></div>
+  <div id="headUser" class="hidden" style="display:flex;align-items:center;gap:9px"><img id="headPhoto" src=""><b id="headName"></b><button class="secondary" onclick="logout()">Log out</button></div>
+</header>
+
+<div id="auth" class="auth card">
+  <div style="text-align:center"><div class="mark" style="margin:auto">C</div><h1>Welcome to CampusConnect</h1><p class="muted">Connect students with verified jobs, internships and attachments.</p></div>
+  <div id="loginForm" class="form">
+    <label>Email</label><input id="loginEmail" type="email" placeholder="you@example.com">
+    <label>Password</label><input id="loginPassword" type="password" placeholder="At least 8 characters">
+    <button class="primary" onclick="login()">Log in</button>
+    <button class="secondary" onclick="toggleAuth()">Create a student account</button>
+  </div>
+  <div id="registerForm" class="form hidden">
+    <label>Full name</label><input id="regName" placeholder="Your full name">
+    <label>Email</label><input id="regEmail" type="email" placeholder="you@example.com">
+    <label>Password</label><input id="regPassword" type="password" placeholder="At least 8 characters">
+    <label>University</label><input id="regUniversity" placeholder="University">
+    <label>Course</label><input id="regCourse" placeholder="e.g. Bachelor of Commerce">
+    <label>Year of study</label><input id="regYear" type="number" min="1" max="10" value="1">
+    <label>Skills (comma separated)</label><input id="regSkills" placeholder="Excel, Accounting, Communication">
+    <label>Interests (comma separated)</label><input id="regInterests" placeholder="Finance, Marketing">
+    <button class="primary" onclick="register()">Create account</button>
+    <button class="secondary" onclick="toggleAuth()">I already have an account</button>
+  </div>
+</div>
+
+<div id="app" class="layout hidden">
+<aside>
+  <button class="nav active" onclick="page('dashboard',this)">🏠 Dashboard</button>
+  <button class="nav" onclick="page('opportunities',this)">🔎 Opportunities</button>
+  <button class="nav" onclick="page('matches',this)">🎯 Matching</button>
+  <button class="nav" onclick="page('saved',this)">❤️ Saved</button>
+  <button class="nav" onclick="page('applications',this)">📩 Applications</button>
+  <button class="nav" onclick="page('notifications',this)">🔔 Notifications</button>
+  <button class="nav" onclick="page('profile',this)">👤 My Profile</button>
+</aside>
+<main>
+<section id="dashboard">
+<div class="hero"><div><span class="badge">✓ Verified opportunities</span><h1>Find Opportunities.<br>Build Experience.<br>Start Your Career.</h1><p>Personalized jobs, internships and attachments based on your course and skills.</p><div class="search"><input id="q" placeholder="Search opportunities"><select id="type"><option value="">All types</option><option>Internship</option><option>Attachment</option><option>Part-time</option><option>Graduate</option><option>Volunteer</option></select><button class="primary" onclick="loadOpportunities()">Search</button></div></div><img id="heroPhoto" src=""></div>
+<div class="section"><h2 id="welcome"></h2><div class="statgrid"><div class="stat">🎯 Matches<b id="matchCount">0</b></div><div class="stat">❤️ Saved<b id="savedCount">0</b></div><div class="stat">📩 Applications<b id="appCount">0</b></div><div class="stat">🔔 Notifications<b id="notifCount">0</b></div></div></div>
+<div class="section"><h2>Recommended for you</h2><div id="recommendations" class="grid"></div></div>
+</section>
+<section id="opportunities" class="hidden"><h1>Find Opportunities</h1><div id="opportunityList"></div></section>
+<section id="matches" class="hidden"><h1>🎯 Your Matches</h1><p class="muted">Matches use your course, skills and interests.</p><div id="matchList"></div></section>
+<section id="saved" class="hidden"><h1>❤️ Saved Opportunities</h1><div id="savedList"></div></section>
+<section id="applications" class="hidden"><h1>📩 My Applications</h1><div id="applicationList"></div></section>
+<section id="notifications" class="hidden"><h1>🔔 Notifications</h1><div id="notificationList"></div></section>
+<section id="profile" class="hidden"><h1>👤 My Profile</h1><div id="profileCard"></div></section>
+</main></div>
+<div id="toast" class="toast"></div>
+
+<script>
+let token=localStorage.getItem('cc_token'), me=null;
+const photoData = ""; // The public site uses the profile photo only after a user uploads/sets it.
+
+function toast(x){let t=document.getElementById('toast');t.textContent=x;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+async function api(path,opts={}){opts.headers={...(opts.headers||{}),...(token?{'Authorization':'Bearer '+token}:{})};let r=await fetch(path,opts);let d=await r.json().catch(()=>({detail:'Request failed'}));if(!r.ok)throw new Error(d.detail||'Request failed');return d}
+function toggleAuth(){document.getElementById('loginForm').classList.toggle('hidden');document.getElementById('registerForm').classList.toggle('hidden')}
+async function register(){try{let d=await api('/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:regName.value,email:regEmail.value,password:regPassword.value,role:'student',university:regUniversity.value,course:regCourse.value,year_of_study:Number(regYear.value),skills:regSkills.value,interests:regInterests.value})});token=d.token;localStorage.setItem('cc_token',token);await start()}catch(e){toast(e.message)}}
+async function login(){try{let d=await api('/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:loginEmail.value,password:loginPassword.value})});token=d.token;localStorage.setItem('cc_token',token);await start()}catch(e){toast(e.message)}}
+function logout(){token=null;localStorage.removeItem('cc_token');location.reload()}
+function page(id,btn){document.querySelectorAll('main section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='opportunities')loadOpportunities();if(id==='matches')loadMatches();if(id==='saved')loadSaved();if(id==='applications')loadApplications();if(id==='notifications')loadNotifications();if(id==='profile')loadProfile()}
+function card(o){return `<div class="card"><span class="badge">${o.verified?'✓ Verified':'Verification pending'}</span><h3>${esc(o.title)}</h3><div class="muted">${esc(o.company)} · ${esc(o.location||'Location not specified')} · ${esc(o.opportunity_type)}</div><p>${esc(o.description)}</p>${o.match_percent?`<div class="match">${o.match_percent}% Match</div>`:''}<div class="actions"><button class="secondary" onclick="saveOpp(${o.id})">♡ Save</button><button class="primary" onclick="applyOpp(${o.id})">Apply Now</button></div></div>`}
+function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function loadOpportunities(){try{let a=await api('/opportunities?q='+encodeURIComponent(document.getElementById('q')?.value||'')+'&opportunity_type='+encodeURIComponent(document.getElementById('type')?.value||''));document.getElementById('opportunityList').innerHTML=a.map(card).join('')||'<div class="card">No opportunities found yet.</div>';if(document.getElementById('recommendations'))document.getElementById('recommendations').innerHTML=a.slice(0,3).map(card).join('')}catch(e){toast(e.message)}}
+async function loadMatches(){try{let a=await api('/me/matches');document.getElementById('matchList').innerHTML=a.map(card).join('')||'<div class="card">Complete your profile to receive more matches.</div>';document.getElementById('matchCount').textContent=a.length}catch(e){toast(e.message)}}
+async function saveOpp(id){try{await api('/opportunities/'+id+'/save',{method:'POST'});toast('Opportunity saved');loadSaved();updateCounts()}catch(e){toast(e.message)}}
+async function loadSaved(){try{let a=await api('/me/saved');document.getElementById('savedList').innerHTML=a.map(card).join('')||'<div class="card">No saved opportunities.</div>';document.getElementById('savedCount').textContent=a.length}catch(e){toast(e.message)}}
+async function applyOpp(id){try{await api('/opportunities/'+id+'/apply',{method:'POST'});toast('Application submitted');loadApplications();updateCounts()}catch(e){toast(e.message)}}
+async function loadApplications(){try{let a=await api('/me/applications');document.getElementById('applicationList').innerHTML=a.map(x=>`<div class="card"><h3>${esc(x.title)}</h3><p class="muted">${esc(x.company)}</p><span class="badge">${esc(x.status)}</span></div>`).join('')||'<div class="card">No applications yet.</div>';document.getElementById('appCount').textContent=a.length}catch(e){toast(e.message)}}
+async function loadNotifications(){try{let a=await api('/me/notifications');document.getElementById('notificationList').innerHTML=a.map(x=>`<div class="card"><b>${esc(x.title)}</b><p>${esc(x.message)}</p><span class="muted">${new Date(x.created_at).toLocaleString()}</span></div>`).join('')||'<div class="card">No notifications yet.</div>';document.getElementById('notifCount').textContent=a.filter(x=>!x.read).length}catch(e){toast(e.message)}}
+async function loadProfile(){try{let u=await api('/me');document.getElementById('profileCard').innerHTML=`<div class="card"><h2>${esc(u.name)}</h2><p class="muted">${esc(u.email)}</p><p><b>University:</b> ${esc(u.university||'Not added')}</p><p><b>Course:</b> ${esc(u.course||'Not added')}</p><p><b>Year:</b> ${esc(u.year_of_study||'Not added')}</p><p><b>Skills:</b> ${esc(u.skills||'Not added')}</p><p><b>Interests:</b> ${esc(u.interests||'Not added')}</p><span class="badge">${u.verified?'✓ Verified profile':'Profile verification pending'}</span></div>`}catch(e){toast(e.message)}}
+async function updateCounts(){loadSaved();loadApplications();loadNotifications();loadMatches()}
+async function start(){try{me=await api('/me');document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('headUser').classList.remove('hidden');document.getElementById('headName').textContent=me.name;document.getElementById('welcome').textContent='Welcome back, '+me.name+' 👋';loadOpportunities();updateCounts()}catch(e){localStorage.removeItem('cc_token');token=null}}
+start();
+</script>
+</body>
+</html>

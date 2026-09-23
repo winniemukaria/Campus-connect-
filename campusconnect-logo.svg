@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="180" viewBox="0 0 700 180">
+<rect width="700" height="180" rx="30" fill="#fff"/>
+<circle cx="90" cy="90" r="60" fill="#1167e8"/>
+<path d="M48 78h84v18H48zM58 55h64v18H58z" fill="#fff"/>
+<path d="M70 112h40l-20 25z" fill="#fff"/>
+<text x="175" y="102" font-family="Arial,sans-serif" font-size="56" font-weight="800" fill="#062b63">Campus</text>
+<text x="402" y="102" font-family="Arial,sans-serif" font-size="56" font-weight="800" fill="#1167e8">Connect</text>
+<text x="178" y="130" font-family="Arial,sans-serif" font-size="16" fill="#6d7d92">Find Opportunities. Build Experience. Start Your Career.</text>
+</svg>
