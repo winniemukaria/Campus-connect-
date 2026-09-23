@@ -12,7 +12,7 @@ import jwt
 BASE = Path(__file__).resolve().parent
 DB =Path("/tmp/campusconnect.db")
 UPLOADS =Path("/tmp/uploads")
-UPLOADS.mkdir(exist_ok=True,parent=True)
+UPLOADS.mkdir(exist_ok=True,parents=True)
 
 SECRET_KEY = os.getenv("CAMPUSCONNECT_SECRET", "CHANGE_THIS_SECRET_BEFORE_DEPLOYMENT")
 ALGORITHM = "HS256"
