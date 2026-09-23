@@ -10,9 +10,9 @@ from passlib.context import CryptContext
 import jwt
 
 BASE = Path(__file__).resolve().parent
-DB = BASE / "campusconnect.db"
-UPLOADS = BASE / "uploads"
-UPLOADS.mkdir(exist_ok=True)
+DB =Path("/tmp/campusconnect.db")
+UPLOADS =Path("/tmp/uploads")
+UPLOADS.mkdir(exist_ok=True,parent=True)
 
 SECRET_KEY = os.getenv("CAMPUSCONNECT_SECRET", "CHANGE_THIS_SECRET_BEFORE_DEPLOYMENT")
 ALGORITHM = "HS256"
