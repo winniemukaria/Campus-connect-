@@ -25,7 +25,7 @@ def conn():
     con.row_factory = sqlite3.Row
     return con
 
-def idef init_db():
+def init_db():
     c = conn()
     # FIX: Drop old broken table so new columns are created
     c.execute("DROP TABLE IF EXISTS users")
