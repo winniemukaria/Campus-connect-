@@ -10,9 +10,34 @@ from passlib.context import CryptContext
 import jwt
 
 BASE = Path(__file__).resolve().parent
-DB =Path("/tmp/campusconnect.db")
-UPLOADS =Path("/tmp/uploads")
-UPLOADS.mkdir(exist_ok=True,parents=True)
+DB = Path("/tmp/campusconnect.db")
+UPLOADS = Path("/tmp/uploads")
+UPLOADS.mkdir(exist_ok=True, parents=True)
+
+SECRET_KEY = os.getenv("CAMPUS_CONNECT_SECRET", "CHANGE_THIS_SECRET_BEFORE_DEPLOYMENT_CHANGE_ME_12345")
+ALGORITHM = "HS256"
+TOKEN_DAYS = 7
+
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
+
+def conn():
+    con = sqlite3.connect(DB, check_same_thread=False)
+    con.row_factory = sqlite3.Row
+    return con
+
+def init_db():
+    c = conn()
+    c.execute("""CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        role TEXT NOT NULL,
+        created_at TEXT
+    )""")
+    c.commit()
+    c.close()
+
+init_db()
 
 SECRET_KEY = os.getenv("CAMPUSCONNECT_SECRET", "CHANGE_THIS_SECRET_BEFORE_DEPLOYMENT")
 ALGORITHM = "HS256"
