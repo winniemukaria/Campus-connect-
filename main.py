@@ -1,83 +1,78 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from passlib.context import CryptContext
-import sqlite3, os
+from typing import List, Optional
+import os
 
 app = FastAPI(title="CampusConnect API")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
-DB = "/tmp/campus.db"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-def init_db():
-    con = sqlite3.connect(DB)
-    con.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, email TEXT UNIQUE, password TEXT, role TEXT)")
-    con.commit()
-    con.close()
-init_db()
+# MEMORY STORAGE - works on Vercel!
+USERS = {}
+# Pre-add your account so login always works
+USERS["winnie@test.com"] = {
+    "id": 1,
+    "email": "winnie@test.com",
+    "password": "12345678",
+    "full_name": "Winfred Mukami M'Mukaria",
+    "university": "University of Embu",
+    "course": "Bachelor of commerce",
+    "year_of_study": 1,
+    "skills": ["Accounting", "communication", "python", "tech"],
+    "interests": ["Finance", "marketing"]
+}
 
-class Register(BaseModel):
-    name: str
+class UserCreate(BaseModel):
     email: str
     password: str
-    role: str = "student"
+    full_name: str
+    university: str
+    course: str
+    year_of_study: int
+    skills: List[str] = []
+    interests: List[str] = []
 
-class Login(BaseModel):
+class UserLogin(BaseModel):
     email: str
     password: str
 
-@app.get("/")
-def serve_frontend():
-    # If index.html exists, serve it as homepage
-    if os.path.exists("index.html"):
-        return FileResponse("index.html")
-    # fallback for campusconnect.html
-    if os.path.exists("campusconnect.html"):
-        return FileResponse("campusconnect.html")
-    return {"name":"CampusConnect API","status":"running","docs":"/docs"}
+@app.get("/api/")
+def root():
+    return {"message": "CampusConnect API", "users": len(USERS)}
 
-@app.get("/campusconnect.html")
-def serve_cc():
-    if os.path.exists("campusconnect.html"):
-        return FileResponse("campusconnect.html")
-    return FileResponse("index.html") if os.path.exists("index.html") else {"error":"not found"}
-
-@app.post("/auth/register")
-def register(data: Register):
-    con = sqlite3.connect(DB)
-    cur = con.cursor()
-    try:
-        hashed = pwd_context.hash(data.password)
-        cur.execute("INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)", (data.name, data.email, hashed, data.role))
-        con.commit()
-        uid = cur.lastrowid
-    except sqlite3.IntegrityError:
-        from fastapi import HTTPException
+@app.post("/api/register")
+def register(user: UserCreate):
+    email = user.email.lower().strip()
+    if email in USERS:
         raise HTTPException(status_code=400, detail="Email already exists")
-    finally:
-        con.close()
-    return {"access_token": f"token-{uid}", "token_type":"bearer", "user": {"id":uid,"name":data.name,"email":data.email,"role":data.role}}
+    USERS[email] = user.dict()
+    USERS[email]["id"] = len(USERS)
+    return {"message": "Registered", "user": USERS[email]}
 
-@app.post("/auth/login")
-def login(data: Login):
-    con = sqlite3.connect(DB)
-    cur = con.cursor()
-    cur.execute("SELECT id,name,email,password,role FROM users WHERE email=?", (data.email,))
-    row = cur.fetchone()
-    con.close()
-    if not row:
-        from fastapi import HTTPException
-        raise HTTPException(status_code=401, detail="User not found")
-    uid, name, email, hashed_pw, role = row
-    if not pwd_context.verify(data.password, hashed_pw):
-        from fastapi import HTTPException
-        raise HTTPException(status_code=401, detail="Wrong password")
-    return {"access_token": f"token-{uid}", "token_type":"bearer", "user": {"id":uid,"name":name,"email":email,"role":role}}
+@app.post("/api/login")
+def login(data: UserLogin):
+    email = data.email.lower().strip()
+    user = USERS.get(email)
+    if not user or user["password"]!= data.password:
+        raise HTTPException(status_code=401, detail="User not found or wrong password")
+    return {"message": "Login successful", "user": user}
 
-# Add dummy endpoints so your frontend's other pages don't break
-@app.get("/opportunities")
-def opps(): return []
-@app.get("/matches")
-def matches(): return []
+@app.get("/api/users/me")
+def get_me(email: str):
+    email = email.lower().strip()
+    if email not in USERS:
+        raise HTTPException(status_code=404, detail="Not found")
+    return USERS[email]
+
+# Serve frontend LAST
+frontend_path = os.path.join(os.path.dirname(__file__), "frontend")
+if os.path.exists(frontend_path):
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
