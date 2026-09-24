@@ -1,8 +1,9 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from passlib.context import CryptContext
-import sqlite3
+import sqlite3, os
 
 app = FastAPI(title="CampusConnect API")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -28,8 +29,20 @@ class Login(BaseModel):
     password: str
 
 @app.get("/")
-def root():
-    return {"name":"CampusConnect API","status":"running","docs":"/docs","frontend_should_use": "https://campus-connect-sigma-nine.vercel.app"}
+def serve_frontend():
+    # If index.html exists, serve it as homepage
+    if os.path.exists("index.html"):
+        return FileResponse("index.html")
+    # fallback for campusconnect.html
+    if os.path.exists("campusconnect.html"):
+        return FileResponse("campusconnect.html")
+    return {"name":"CampusConnect API","status":"running","docs":"/docs"}
+
+@app.get("/campusconnect.html")
+def serve_cc():
+    if os.path.exists("campusconnect.html"):
+        return FileResponse("campusconnect.html")
+    return FileResponse("index.html") if os.path.exists("index.html") else {"error":"not found"}
 
 @app.post("/auth/register")
 def register(data: Register):
@@ -41,7 +54,8 @@ def register(data: Register):
         con.commit()
         uid = cur.lastrowid
     except sqlite3.IntegrityError:
-        raise HTTPException(status_code=400, detail="Email already exists - try login")
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail="Email already exists")
     finally:
         con.close()
     return {"access_token": f"token-{uid}", "token_type":"bearer", "user": {"id":uid,"name":data.name,"email":data.email,"role":data.role}}
@@ -54,8 +68,16 @@ def login(data: Login):
     row = cur.fetchone()
     con.close()
     if not row:
+        from fastapi import HTTPException
         raise HTTPException(status_code=401, detail="User not found")
     uid, name, email, hashed_pw, role = row
     if not pwd_context.verify(data.password, hashed_pw):
+        from fastapi import HTTPException
         raise HTTPException(status_code=401, detail="Wrong password")
     return {"access_token": f"token-{uid}", "token_type":"bearer", "user": {"id":uid,"name":name,"email":email,"role":role}}
+
+# Add dummy endpoints so your frontend's other pages don't break
+@app.get("/opportunities")
+def opps(): return []
+@app.get("/matches")
+def matches(): return []
