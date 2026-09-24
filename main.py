@@ -1,12 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
-from typing import List
 import os
 
-app = FastAPI()
+app = FastAPI(title="CampusConnect - Founder Winnie Mukaria")
 
+# Allow all frontends
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,57 +15,56 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-USERS = {}
-USERS["winnie@test.com"] = {
-    "id": 1, "email": "winnie@test.com", "password": "12345678",
-    "full_name": "Winfred Mukami", "university": "University of Embu",
-    "course": "Bachelor of commerce", "year_of_study": 1,
-    "skills": ["Accounting"], "interests": ["Finance"]
-}
+# --- EXPLICIT PHOTO ROUTE - FIXES YOUR ISSUE ---
+@app.get("/winnie.jpg")
+async def serve_winnie():
+    # Check root
+    if os.path.exists("winnie.jpg"):
+        return FileResponse("winnie.jpg")
+    # Check lowercase search
+    for file in os.listdir("."):
+        if file.lower() == "winnie.jpg":
+            return FileResponse(file)
+    return {"detail": "Not Found - winnie.jpg missing"}
 
-class UserCreate(BaseModel):
-    email: str; password: str; full_name: str; university: str
-    course: str; year_of_study: int; skills: List[str]=[]; interests: List[str]=[]
+@app.get("/Winnie.jpg")
+async def serve_winnie_cap():
+    return await serve_winnie()
 
-class UserLogin(BaseModel):
-    email: str; password: str
+# --- SIMPLE API FOR FRONTEND ---
+@app.get("/api")
+async def api_root():
+    return {"message": "CampusConnect API - Founder Winnie Mukaria - UoEm BCom", "status": "LIVE"}
 
-@app.get("/api/")
-def root(): return {"message": "API OK", "users": len(USERS)}
+@app.get("/api/health")
+async def health():
+    return {"backend": "Connected", "users": 1, "founder": "Winnie Mukaria"}
 
-@app.post("/api/register")
-def register(u: UserCreate):
-    e=u.email.lower().strip()
-    if e in USERS: raise HTTPException(400,"Email exists")
-    USERS[e]=u.dict(); USERS[e]["id"]=len(USERS); return {"user": USERS[e]}
+# --- SERVE FRONTEND ---
+# Find which index file exists
+def find_index():
+    candidates = ["index.html", "index_html", "campusconnect.html", "index.htm"]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    # Look for any html with CampusConnect
+    for f in os.listdir("."):
+        if f.endswith(".html") and "CampusConnect" in f:
+            return f
+    return None
 
-@app.post("/api/login")
-def login(d: UserLogin):
-    e=d.email.lower().strip()
-    u=USERS.get(e)
-    if not u or u["password"]!=d.password: raise HTTPException(401,"User not found")
-    return {"user": u}
+@app.get("/")
+async def root():
+    index_file = find_index()
+    if index_file and os.path.exists(index_file):
+        return FileResponse(index_file)
+    # Fallback
+    return {"message": "CampusConnect is LIVE - Founder Winnie Mukaria", "photo": "/winnie.jpg"}
 
-# Try to serve frontend, else return simple login page
-@app.get("/", response_class=HTMLResponse)
-def serve_home():
-    for p in ["frontend/index.html", "./frontend/index.html", "index.html"]:
-        if os.path.exists(p):
-            with open(p) as f: return f.read()
-    # Fallback HTML if frontend folder missing
-    return """
-    <html><body style="font-family:Arial;padding:20px;max-width:400px;margin:auto">
-    <h1>CampusConnect</h1>
-    <h3>Login (Test account: winnie@test.com / 12345678)</h3>
-    <input id="email" placeholder="Email" value="winnie@test.com" style="width:100%;padding:10px;margin:5px 0"><br>
-    <input id="pass" type="password" placeholder="Password" value="12345678" style="width:100%;padding:10px;margin:5px 0"><br>
-    <button onclick="login()" style="width:100%;padding:10px;background:blue;color:white;border:none">Log in</button>
-    <p id="msg"></p>
-    <script>
-    async function login(){
-      const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('email').value,password:document.getElementById('pass').value})});
-      const j=await r.json();
-      document.getElementById('msg').innerText = r.ok? 'SUCCESS! Welcome '+j.user.full_name : JSON.stringify(j);
-    }
-    </script></body></html>
-    """
+# --- IMPORTANT: Mount static files LAST so API routes work ---
+# This serves all static files like winnie.jpg, logo etc
+if os.path.exists("."):
+    try:
+        app.mount("/", StaticFiles(directory=".", html=True), name="static")
+    except:
+        pass
