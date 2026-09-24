@@ -25,19 +25,41 @@ def conn():
     con.row_factory = sqlite3.Row
     return con
 
-def init_db():
+def idef init_db():
     c = conn()
-    c.execute("""CREATE TABLE IF NOT EXISTS users (
+    # FIX: Drop old broken table so new columns are created
+    c.execute("DROP TABLE IF EXISTS users")
+    c.execute("""CREATE TABLE IF NOT EXISTS users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         role TEXT NOT NULL,
+        university TEXT,
+        course TEXT,
+        year_of_study INTEGER,
+        skills TEXT,
+        interests TEXT,
+        location TEXT,
+        bio TEXT,
         created_at TEXT
     )""")
     c.commit()
     c.close()
 
 init_db()
+    c 
+    c
+        
+        
+    
+        
+        
+    
+    c
+    
+
+init_
 
 SECRET_KEY = os.getenv("CAMPUSCONNECT_SECRET", "CHANGE_THIS_SECRET_BEFORE_DEPLOYMENT")
 ALGORITHM = "HS256"
