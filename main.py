@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 import os
 
-app = FastAPI(title="CampusConnect API")
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,64 +15,57 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# MEMORY STORAGE - works on Vercel!
 USERS = {}
-# Pre-add your account so login always works
 USERS["winnie@test.com"] = {
-    "id": 1,
-    "email": "winnie@test.com",
-    "password": "12345678",
-    "full_name": "Winfred Mukami M'Mukaria",
-    "university": "University of Embu",
-    "course": "Bachelor of commerce",
-    "year_of_study": 1,
-    "skills": ["Accounting", "communication", "python", "tech"],
-    "interests": ["Finance", "marketing"]
+    "id": 1, "email": "winnie@test.com", "password": "12345678",
+    "full_name": "Winfred Mukami", "university": "University of Embu",
+    "course": "Bachelor of commerce", "year_of_study": 1,
+    "skills": ["Accounting"], "interests": ["Finance"]
 }
 
 class UserCreate(BaseModel):
-    email: str
-    password: str
-    full_name: str
-    university: str
-    course: str
-    year_of_study: int
-    skills: List[str] = []
-    interests: List[str] = []
+    email: str; password: str; full_name: str; university: str
+    course: str; year_of_study: int; skills: List[str]=[]; interests: List[str]=[]
 
 class UserLogin(BaseModel):
-    email: str
-    password: str
+    email: str; password: str
 
 @app.get("/api/")
-def root():
-    return {"message": "CampusConnect API", "users": len(USERS)}
+def root(): return {"message": "API OK", "users": len(USERS)}
 
 @app.post("/api/register")
-def register(user: UserCreate):
-    email = user.email.lower().strip()
-    if email in USERS:
-        raise HTTPException(status_code=400, detail="Email already exists")
-    USERS[email] = user.dict()
-    USERS[email]["id"] = len(USERS)
-    return {"message": "Registered", "user": USERS[email]}
+def register(u: UserCreate):
+    e=u.email.lower().strip()
+    if e in USERS: raise HTTPException(400,"Email exists")
+    USERS[e]=u.dict(); USERS[e]["id"]=len(USERS); return {"user": USERS[e]}
 
 @app.post("/api/login")
-def login(data: UserLogin):
-    email = data.email.lower().strip()
-    user = USERS.get(email)
-    if not user or user["password"]!= data.password:
-        raise HTTPException(status_code=401, detail="User not found or wrong password")
-    return {"message": "Login successful", "user": user}
+def login(d: UserLogin):
+    e=d.email.lower().strip()
+    u=USERS.get(e)
+    if not u or u["password"]!=d.password: raise HTTPException(401,"User not found")
+    return {"user": u}
 
-@app.get("/api/users/me")
-def get_me(email: str):
-    email = email.lower().strip()
-    if email not in USERS:
-        raise HTTPException(status_code=404, detail="Not found")
-    return USERS[email]
-
-# Serve frontend LAST
-frontend_path = os.path.join(os.path.dirname(__file__), "frontend")
-if os.path.exists(frontend_path):
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+# Try to serve frontend, else return simple login page
+@app.get("/", response_class=HTMLResponse)
+def serve_home():
+    for p in ["frontend/index.html", "./frontend/index.html", "index.html"]:
+        if os.path.exists(p):
+            with open(p) as f: return f.read()
+    # Fallback HTML if frontend folder missing
+    return """
+    <html><body style="font-family:Arial;padding:20px;max-width:400px;margin:auto">
+    <h1>CampusConnect</h1>
+    <h3>Login (Test account: winnie@test.com / 12345678)</h3>
+    <input id="email" placeholder="Email" value="winnie@test.com" style="width:100%;padding:10px;margin:5px 0"><br>
+    <input id="pass" type="password" placeholder="Password" value="12345678" style="width:100%;padding:10px;margin:5px 0"><br>
+    <button onclick="login()" style="width:100%;padding:10px;background:blue;color:white;border:none">Log in</button>
+    <p id="msg"></p>
+    <script>
+    async function login(){
+      const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('email').value,password:document.getElementById('pass').value})});
+      const j=await r.json();
+      document.getElementById('msg').innerText = r.ok? 'SUCCESS! Welcome '+j.user.full_name : JSON.stringify(j);
+    }
+    </script></body></html>
+    """
