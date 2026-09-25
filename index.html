@@ -3,178 +3,252 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CampusConnect - Winnie Mukaria</title>
+<title>CampusConnect - Winnie Mukaria CEO</title>
 <style>
-body{margin:0;font-family:system-ui;background:#f2f4f8}
-.top{background:linear-gradient(180deg,#2f5fe2,#234ecf);padding:40px 20px;text-align:center;border-radius:0 0 30px 30px;color:#fff}
+body{margin:0;font-family:system-ui;background:#f2f4f8;color:#111}
+.top{background:linear-gradient(180deg,#2f5fe2,#234ecf);padding:40px 20px;text-align:center;border-radius:0 0 32px 32px;color:#fff}
 .top img{width:140px;height:140px;border-radius:50%;border:5px solid #fff;object-fit:cover}
-.badge{background:#ff7a1a;color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;display:inline-block;margin:10px}
-.box{background:rgba(255,255,255,.2);border-radius:14px;padding:12px;max-width:350px;margin:14px auto;text-align:left;font-size:13px;line-height:1.5}
-.card{max-width:400px;margin:16px auto;background:#fff;border-radius:18px;padding:20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.btnE{width:100%;background:#ff7a1a;color:#fff;border:none;padding:15px;border-radius:12px;font-weight:800;font-size:16px}
-.tab{display:none;padding:16px 16px 80px}.tab.active{display:block}
-.c{background:#fff;padding:14px;border-radius:12px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.badge{background:#ff7a1a;color:#fff;padding:6px 16px;border-radius:20px;font-weight:800;display:inline-block;margin:8px}
+.box{background:rgba(255,255,255,.22);border-radius:14px;padding:12px;max-width:360px;margin:14px auto;text-align:left;font-size:13px;line-height:1.5}
+.cardL{max-width:420px;margin:18px auto;background:#fff;border-radius:20px;padding:20px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.btnO{width:100%;background:#ff7a1a;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:800;font-size:16px}
+.tab{display:none;padding:16px 16px 90px}.tab.active{display:block}
+.c{background:#fff;padding:14px;border-radius:14px;margin:10px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .b{width:100%;background:#2f5fe2;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;margin:6px 0}
 .b2{background:#eef2ff;color:#2f5fe2}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px;border-top:1px solid #ddd}
-input,textarea{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:1px solid #ccc}
+.bO{background:#ff7a1a}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:6px 2px;border-top:1px solid #e5e7eb;z-index:10}
+.nav button{border:none;background:none;font-size:11px;color:#6b7280;padding:6px 8px;border-radius:10px}
+.nav button.active{background:#eef2ff;color:#2f5fe2;font-weight:700}
+input,textarea,select{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:1px solid #d1d5db}
 </style>
 </head>
 <body>
 
-<div id="home">
+<div id="homePage">
 <div class="top">
-<img src="./founder.jpg">
-<h1>Winnie Mukaria</h1>
+<img src="./founder.jpg" onerror="this.src='https://i.pravatar.cc/300?img=5'">
+<h1 style="margin:16px 0 6px;font-size:32px">Winnie Mukaria</h1>
 <div class="badge">👑 Founder & CEO</div>
-<div>University of Embu • Year 1 • BCom</div>
-<div class="box">CampusConnect — Kenya's #1 student platform founded by me to help students find internships, attachments & jobs. Built by a student, for students. Trusted by 500+ students in Embu.</div>
+<div style="font-size:14px;margin:10px 0">University of Embu • Year 1 • BCom</div>
+<div class="box"><b>CampusConnect</b> — Kenya's #1 student platform founded by me to help students find internships, attachments & jobs. Built by a student, for students. Trusted by 500+ students in Embu.</div>
 </div>
-<div class="card">
+<div class="cardL">
 <h2 style="color:#1e3a8a;margin:0">Welcome to CampusConnect</h2>
-<p style="color:#666">Founded by Winnie Mukaria</p>
-<button class="btnE" onclick="go()">Enter CampusConnect →</button>
-<p style="font-size:11px;color:#999">No fees on homepage • Pay only when you upload CV or post job to 0705991406</p>
+<p style="color:#6b7280;font-size:14px;margin:6px 0 16px">Founded by Winnie Mukaria</p>
+<button class="btnO" onclick="enter()">Enter CampusConnect →</button>
+<p style="font-size:11px;color:#9ca3af;margin-top:10px">No fees on homepage • Pay only when you upload CV or post job to 0705991406</p>
 </div>
 </div>
 
-<div id="auth" class="tab">
+<div id="authPage" class="tab">
 <h2 style="color:#1e3a8a">Join CampusConnect</h2>
 <div class="c">
-<button id="sBtn" class="b" onclick="role='student';upd()">🎓 Student</button>
-<button id="eBtn" class="b b2" onclick="role='employer';upd()">🏢 Employer</button>
-<input id="n" placeholder="Full Name">
-<input id="em" placeholder="Email">
-<input id="pw" type="password" placeholder="Password">
-<button class="b" style="background:#ff7a1a" onclick="login()">Continue</button>
-<button onclick="back()" style="border:none;background:none;color:#666;width:100%;margin-top:10px">← Back</button>
-<p id="hint" style="font-size:12px;color:#2f5fe2;background:#eef2ff;padding:8px;border-radius:8px">Selected: Student</p>
+<p style="font-size:13px;color:#6b7280">Choose account type (tap to select):</p>
+<button id="btnStudent" class="b" onclick="setR('student')">🎓 Student — Find Jobs & Upload CV</button>
+<button id="btnEmployer" class="b b2" onclick="setR('employer')">🏢 Employer — Post Jobs & Find CVs</button>
+<hr style="border:none;border-top:1px solid #eee;margin:12px 0">
+<input id="inpName" placeholder="Full Name">
+<input id="inpEmail" placeholder="Email">
+<input id="inpPass" type="password" placeholder="Password">
+<button class="b bO" onclick="doLogin()">Continue →</button>
+<button onclick="goBack()" style="border:none;background:none;color:#666;width:100%;margin-top:12px">← Back to Home</button>
+<p id="roleHint" style="font-size:12px;background:#eef2ff;color:#1d4ed8;padding:10px;border-radius:10px;margin-top:10px">Selected: Student</p>
 </div>
 </div>
 
-<div id="bar" style="display:none;background:#fff;padding:10px;border-bottom:1px solid #eee;position:sticky;top:0">
+<div id="topBar" style="display:none;background:#fff;padding:10px 14px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:9">
 <b style="color:#2f5fe2">CampusConnect</b>
-<span id="rTag" style="background:#2f5fe2;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px"></span>
-<button onclick="out()" style="float:right;border:none;background:#fee;padding:5px 10px;border-radius:6px">Logout</button>
+<span id="roleTag" style="background:#2f5fe2;color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;margin-left:6px"></span>
+<button onclick="doLogout()" style="float:right;border:none;background:#fee2e2;color:#dc2626;padding:6px 12px;border-radius:8px;font-weight:700">Logout</button>
 </div>
 
-<div id="sH" class="tab"><h3>Home</h3><div class="c"><b>Upload CV (50 to 0705991406)</b><br><small id="cvTxt">No CV yet</small><br><br><input type="file" onchange="cvUp(event)"></div><div id="j1"></div></div>
-<div id="sJ" class="tab"><h3>Jobs</h3><div id="j2"></div></div>
-<div id="eD" class="tab"><h3>Dashboard</h3><div class="c">Posted: <b id="cnt">0</b></div><div id="j3"></div></div>
-<div id="eP" class="tab"><h3>Post Job</h3><div class="c"><input id="jt" placeholder="Job Title"><input id="jc" placeholder="Company"><input id="jl" placeholder="Location"><textarea id="jd" placeholder="Description"></textarea><button class="b" style="background:#ff7a1a" onclick="post()">Post (99 to 0705991406)</button></div></div>
+<div id="tabSHome" class="tab">
+<h3>Welcome <span id="sNameTop"></span> 👋</h3>
+<div class="c" style="border-left:4px solid #ff7a1a"><b>📄 Upload CV</b><br><small style="color:#6b7280">Pay 50 BOB to 0705991406 after choosing file</small><br><small id="cvStatus" style="font-weight:700;color:#059669">No CV yet</small><br><br><input type="file" onchange="handleCV(event)"></div>
+<h3>🔥 Latest Jobs</h3><div id="listHome"></div>
+</div>
+<div id="tabSJobs" class="tab"><h3>💼 All Jobs</h3><div id="listJobs"></div></div>
+<div id="tabSSaved" class="tab"><h3>❤️ Saved Jobs</h3><div id="listSaved"></div></div>
+<div id="tabSApplied" class="tab"><h3>📄 Applied Jobs</h3><div id="listApplied"></div></div>
+<div id="tabSMe" class="tab"><h3>👤 My Profile</h3><div class="c"><b>Name:</b> <span id="meName"></span><br><b>Email:</b> <span id="meEmail"></span><br><b>Role:</b> Student<br><b>CV:</b> <span id="meCV"></span></div></div>
 
-<div id="nav" class="nav" style="display:none"></div>
+<div id="tabEDash" class="tab"><h3>📊 Employer Dashboard</h3><div class="c" style="background:linear-gradient(135deg,#2f5fe2,#ff7a1a);color:#fff"><div style="font-size:13px;opacity:.9">Jobs Posted By You</div><div id="eCount" style="font-size:32px;font-weight:800">0</div><div style="font-size:11px;opacity:.9">M-Pesa 0705991406 • 99 per post</div></div><h3>All Jobs</h3><div id="listAllJobs"></div></div>
+<div id="tabEPost" class="tab"><h3>➕ Post New Job</h3><div class="c"><input id="jobTitle" placeholder="Job Title *"><input id="jobCompany" placeholder="Company Name *"><input id="jobLocation" placeholder="Location"><select id="jobType"><option>Internship</option><option>Attachment</option><option>Part-time</option><option>Full-time</option></select><textarea id="jobDesc" rows="4" placeholder="Description & Requirements"></textarea><button class="b bO" onclick="postJob()">Post Job — Pay 99 to 0705991406</button></div></div>
+<div id="tabECVs" class="tab"><h3>📄 Student CVs</h3><div id="listCVs"></div></div>
+<div id="tabEMe" class="tab"><h3>👤 Employer Profile</h3><div class="c"><b>Name:</b> <span id="eName"></span><br><b>Email:</b> <span id="eEmail"></span><br><b>Role:</b> Employer</div></div>
+
+<div id="bottomNav" class="nav" style="display:none"></div>
 
 <script>
-var role='student';
-var cur=null;
-var jobs=[
-{id:1,title:"Finance Intern",company:"Equity Bank",location:"Embu",desc:"BCom - 3 months"},
-{id:2,title:"Marketing",company:"Safaricom",location:"Nairobi",desc:"Attachment"},
-{id:3,title:"Sales",company:"Naivas",location:"Embu",desc:"Part-time"}
+var currentRole='student';
+var currentUser=null;
+var allJobs=[
+{id:1,title:"Finance Intern",company:"Equity Bank",location:"Embu",type:"Internship",desc:"BCom students - 3 months paid",postedBy:"Equity HR"},
+{id:2,title:"Marketing Attachment",company:"Safaricom",location:"Nairobi",type:"Attachment",desc:"M-Pesa marketing team - 3 months",postedBy:"Safaricom"},
+{id:3,title:"Sales Associate",company:"Naivas Supermarket",location:"Embu",type:"Part-time",desc:"Weekend sales - 15k per month",postedBy:"Naivas HR"},
+{id:4,title:"IT Support Intern",company:"University of Embu",location:"Embu",type:"Internship",desc:"ICT helpdesk - for Year 2+",postedBy:"UoEm ICT"}
 ];
-
-function upd(){
-var s=document.getElementById('sBtn');
-var e=document.getElementById('eBtn');
-var h=document.getElementById('hint');
-if(role=='student'){
+function loadAll(){try{var j=localStorage.getItem('cc_jobs');if(j){allJobs=JSON.parse(j);}}catch(e){}}
+function saveJobs(){localStorage.setItem('cc_jobs',JSON.stringify(allJobs));}
+function setR(r){
+currentRole=r;
+var s=document.getElementById('btnStudent');
+var e=document.getElementById('btnEmployer');
+var h=document.getElementById('roleHint');
+if(r=='student'){
 s.style.background='#2f5fe2';s.style.color='#fff';
 e.style.background='#eef2ff';e.style.color='#2f5fe2';
-h.textContent='Selected: Student - Find jobs';
+h.textContent='Selected: Student — You will find jobs, save, apply (50 to 0705991406)';
+h.style.background='#eef2ff';h.style.color='#1d4ed8';
 }else{
 e.style.background='#ff7a1a';e.style.color='#fff';
 s.style.background='#eef2ff';s.style.color='#2f5fe2';
-h.textContent='Selected: Employer - Post jobs (99 to 0705991406)';
+h.textContent='Selected: Employer — You will post jobs (99 to 0705991406) & view CVs — NOW tap Continue';
+h.style.background='#fff7ed';h.style.color='#c2410c';
 }
 }
-
-function go(){
-document.getElementById('home').style.display='none';
-var a=document.getElementById('auth');
-a.style.display='block';
-a.className='tab active';
+function enter(){document.getElementById('homePage').style.display='none';var a=document.getElementById('authPage');a.style.display='block';a.className='tab active';}
+function goBack(){document.getElementById('authPage').style.display='none';document.getElementById('homePage').style.display='block';}
+function doLogin(){
+var name=document.getElementById('inpName').value.trim();
+var email=document.getElementById('inpEmail').value.trim();
+var pass=document.getElementById('inpPass').value.trim();
+if(!email||!pass){alert('Enter email and password');return;}
+var users=JSON.parse(localStorage.getItem('cc_users')||'{"student":[],"employer":[]}');
+var list=users[currentRole];
+var found=list.find(u=>u.email.toLowerCase()==email.toLowerCase());
+if(found){currentUser=found;if(name)currentUser.name=name;}else{currentUser={name:name||email.split('@')[0],email:email,role:currentRole,saved:[],applied:[],cv:null};list.push(currentUser);localStorage.setItem('cc_users',JSON.stringify(users));}
+localStorage.setItem('cc_cur',JSON.stringify(currentUser));
+showApp();
 }
-function back(){
-document.getElementById('auth').style.display='none';
-document.getElementById('home').style.display='block';
-}
-function login(){
-var name=document.getElementById('n').value;
-var email=document.getElementById('em').value;
-var pw=document.getElementById('pw').value;
-if(!email||!pw){alert('Enter email and password');return;}
-cur={name:name||email.split('@')[0],email:email,role:role,cv:null,applied:[]};
-localStorage.setItem('cur',JSON.stringify(cur));
-show();
-}
-function show(){
-document.getElementById('home').style.display='none';
-document.getElementById('auth').style.display='none';
+function showApp(){
+loadAll();
+document.getElementById('homePage').style.display='none';
+document.getElementById('authPage').style.display='none';
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.getElementById('bar').style.display='block';
-document.getElementById('rTag').textContent=cur.role;
-var saved=localStorage.getItem('jobs');
-if(saved){jobs=JSON.parse(saved);}
-if(cur.role=='student'){
-document.getElementById('sH').className='tab active';
-document.getElementById('nav').innerHTML='<button onclick="tab(\'sH\')">🏠 Home</button><button onclick="tab(\'sJ\')">💼 Jobs</button>';
+document.getElementById('topBar').style.display='block';
+document.getElementById('roleTag').textContent=currentUser.role;
+var nav=document.getElementById('bottomNav');
+if(currentUser.role=='student'){
+document.getElementById('tabSHome').className='tab active';
+document.getElementById('sNameTop').textContent=currentUser.name;
+document.getElementById('meName').textContent=currentUser.name;
+document.getElementById('meEmail').textContent=currentUser.email;
+document.getElementById('meCV').textContent=currentUser.cv||'None';
+document.getElementById('cvStatus').textContent=currentUser.cv?'✅ '+currentUser.cv:'No CV yet';
+nav.innerHTML='<button id="nSHome" class="active" onclick="switchTab(\'tabSHome\',\'nSHome\')">🏠<br>Home</button><button id="nSJobs" onclick="switchTab(\'tabSJobs\',\'nSJobs\')">💼<br>Jobs</button><button id="nSSaved" onclick="switchTab(\'tabSSaved\',\'nSSaved\')">❤️<br>Saved</button><button id="nSApplied" onclick="switchTab(\'tabSApplied\',\'nSApplied\')">📄<br>Applied</button><button id="nSMe" onclick="switchTab(\'tabSMe\',\'nSMe\')">👤<br>Me</button>';
 }else{
-document.getElementById('eD').className='tab active';
-document.getElementById('nav').innerHTML='<button onclick="tab(\'eD\')">📊 Dash</button><button onclick="tab(\'eP\')">➕ Post</button>';
+document.getElementById('tabEDash').className='tab active';
+document.getElementById('eName').textContent=currentUser.name;
+document.getElementById('eEmail').textContent=currentUser.email;
+nav.innerHTML='<button id="nEDash" class="active" onclick="switchTab(\'tabEDash\',\'nEDash\')">📊<br>Dash</button><button id="nEPost" onclick="switchTab(\'tabEPost\',\'nEPost\')">➕<br>Post</button><button id="nECVs" onclick="switchTab(\'tabECVs\',\'nECVs\')">📄<br>CVs</button><button id="nEMe" onclick="switchTab(\'tabEMe\',\'nEMe\')">👤<br>Me</button>';
 }
-document.getElementById('nav').style.display='flex';
-render();
+nav.style.display='flex';
+renderAll();
 }
-function tab(id){
+function switchTab(tabId,navId){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.getElementById(id).className='tab active';
+document.getElementById(tabId).className='tab active';
+document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.remove('active'));
+var nb=document.getElementById(navId);
+if(nb)nb.classList.add('active');
+if(tabId=='tabSSaved')renderSaved();
+if(tabId=='tabSApplied')renderApplied();
+if(tabId=='tabECVs')renderCVs();
 }
-function render(){
-var h1=document.getElementById('j1');
-var h2=document.getElementById('j2');
-var h3=document.getElementById('j3');
-var html=jobs.map(j=>'<div class=c><b>'+j.title+'</b><br>'+j.company+' • '+j.location+'<br><small>'+j.desc+'</small><br><br><button class=b style=width:auto;padding:8px 12px;background:#ff7a1a onclick=apply('+j.id+')>Apply (50)</button></div>').join('');
-if(h1)h1.innerHTML=html;
-if(h2)h2.innerHTML=html;
-if(h3)h3.innerHTML=html;
-var c=document.getElementById('cnt');
-if(c)c.textContent=jobs.filter(j=>j.postedBy==cur.name).length;
+function renderAll(){
+var html=allJobs.map(j=>{
+var saved=currentUser.saved&&currentUser.saved.includes(j.id);
+return '<div class=c><div style="display:flex;justify-content:space-between"><b style="color:#1e3a8a">'+j.title+'</b><span style="font-size:11px;background:#eef2ff;color:#2f5fe2;padding:3px 8px;border-radius:10px">'+(j.type||'Job')+'</span></div><div style="font-size:13px;margin:4px 0;color:#333">'+j.company+' • '+j.location+'</div><div style="font-size:12px;color:#6b7280">'+j.desc+'</div><div style="font-size:11px;color:#9ca3af;margin-top:4px">By: '+(j.postedBy||'Admin')+'</div><div style="margin-top:10px"><button class=b style="width:auto;padding:7px 12px;background:#eef2ff;color:#2f5fe2;font-size:13px" onclick="toggleSave('+j.id+')">'+(saved?'❤️ Saved':'🤍 Save')+'</button> <button class=b bO style="width:auto;padding:7px 14px;background:#ff7a1a;font-size:13px" onclick="doApply('+j.id+')">Apply (50)</button></div></div>';
+}).join('');
+var a=document.getElementById('listHome');if(a)a.innerHTML=html;
+var b=document.getElementById('listJobs');if(b)b.innerHTML=html;
+var c=document.getElementById('listAllJobs');if(c)c.innerHTML=html;
+renderSaved();renderApplied();renderCVs();updateCount();
 }
-function cvUp(e){
-var f=e.target.files[0];
-if(!f)return;
-var code=prompt('UPLOAD CV\nPay 50 BOB\nM-Pesa 0705991406\nPaste code:');
-if(!code||code.length<5){alert('Need 50 to 0705991406');e.target.value='';return;}
-cur.cv=f.name;
-localStorage.setItem('cur',JSON.stringify(cur));
-document.getElementById('cvTxt').textContent='✅ '+f.name+' Paid 50 Code:'+code;
-alert('CV Paid 50 to 0705991406');
+function toggleSave(id){
+if(!currentUser.saved)currentUser.saved=[];
+if(currentUser.saved.includes(id)){currentUser.saved=currentUser.saved.filter(x=>x!=id);}else{currentUser.saved.push(id);}
+saveCurrent();renderAll();
 }
-function apply(id){
-if(!cur.cv){alert('Upload CV first');tab('sH');return;}
-var code=prompt('APPLY\nPay 50 to 0705991406\nPaste code:');
+function renderSaved(){
+var el=document.getElementById('listSaved');if(!el)return;
+var list=allJobs.filter(j=>currentUser.saved&&currentUser.saved.includes(j.id));
+if(list.length==0){el.innerHTML='<div class=c><p style=color:#6b7280>No saved jobs. Tap Save on any job.</p></div>';return;}
+el.innerHTML=list.map(j=>'<div class=c><b>'+j.title+'</b><br>'+j.company+' • '+j.location+'<br><small>'+j.desc+'</small><br><br><button class=b style=width:auto;padding:7px 12px;background:#ff7a1a onclick=doApply('+j.id+')>Apply</button> <button class=b style=width:auto;padding:7px 12px;background:#eef2ff;color:#2f5fe2 onclick=toggleSave('+j.id+')>Unsave</button></div>').join('');
+}
+function renderApplied(){
+var el=document.getElementById('listApplied');if(!el)return;
+var list=allJobs.filter(j=>currentUser.applied&&currentUser.applied.includes(j.id));
+if(list.length==0){el.innerHTML='<div class=c><p style=color:#6b7280>No applications yet. Apply to jobs (50 to 0705991406).</p></div>';return;}
+el.innerHTML=list.map(j=>'<div class=c><b>'+j.title+'</b> — '+j.company+'<br><small>✅ Applied — 50 paid to 0705991406</small></div>').join('');
+}
+function renderCVs(){
+var el=document.getElementById('listCVs');if(!el)return;
+var users=JSON.parse(localStorage.getItem('cc_users')||'{"student":[],"employer":[]}');
+var studs=users.student.filter(u=>u.cv);
+if(studs.length==0){el.innerHTML='<div class=c><p style=color:#6b7280>No CVs yet. Students pay 50 to 0705991406 to upload CVs, they will appear here.</p></div>';return;}
+el.innerHTML=studs.map(u=>'<div class=c><b>'+u.name+'</b> — '+u.email+'<br><small>CV: '+u.cv+'</small><br><br><button class=b style=width:auto;padding:6px 12px;background:#ff7a1a onclick=alert(\'Contact: '+u.email+'\')>Contact Student</button></div>').join('');
+}
+function updateCount(){
+var el=document.getElementById('eCount');if(!el)return;
+var cnt=allJobs.filter(j=>j.postedBy==currentUser.name||j.postedBy==currentUser.email).length;
+el.textContent=cnt;
+}
+function saveCurrent(){
+localStorage.setItem('cc_cur',JSON.stringify(currentUser));
+var users=JSON.parse(localStorage.getItem('cc_users')||'{"student":[],"employer":[]}');
+var list=users[currentUser.role];
+var idx=list.findIndex(u=>u.email==currentUser.email);
+if(idx>=0){list[idx]=currentUser;localStorage.setItem('cc_users',JSON.stringify(users));}
+}
+function handleCV(e){
+var f=e.target.files[0];if(!f)return;
+var code=prompt('📄 UPLOAD CV\n\nPay 50 BOB\nM-Pesa: 0705991406\nName: Winnie CEO\n\nPaste M-Pesa Code after paying:');
+if(!code||code.length<5){alert('❌ Need 50 to 0705991406');e.target.value='';return;}
+currentUser.cv=f.name+' (Code:'+code+')';
+document.getElementById('cvStatus').textContent='✅ '+currentUser.cv;
+saveCurrent();
+alert('✅ CV Uploaded! 50 to 0705991406 Code:'+code);
+}
+function doApply(id){
+if(currentUser.role!='student'){alert('Only students can apply. Please logout and login as student.');return;}
+if(!currentUser.cv){alert('Upload CV first in Home tab (50 to 0705991406)');switchTab('tabSHome','nSHome');return;}
+var code=prompt('💼 APPLY JOB\n\nPay 50 BOB\nM-Pesa: 0705991406\nPaste Code:');
 if(!code||code.length<5)return;
-cur.applied.push(id);
-localStorage.setItem('cur',JSON.stringify(cur));
-alert('Applied 50 to 0705991406 Code:'+code);
+if(!currentUser.applied)currentUser.applied=[];
+if(currentUser.applied.includes(id)){alert('Already applied');return;}
+currentUser.applied.push(id);
+saveCurrent();
+alert('✅ Applied! 50 to 0705991406 Code:'+code);
+renderAll();
 }
-function post(){
-var t=document.getElementById('jt').value;
-var c=document.getElementById('jc').value;
-if(!t||!c){alert('Add title and company');return;}
-var code=prompt('POST JOB\nPay 99 to 0705991406\nPaste code:');
+function postJob(){
+var t=document.getElementById('jobTitle').value.trim();
+var c=document.getElementById('jobCompany').value.trim();
+var l=document.getElementById('jobLocation').value.trim();
+var d=document.getElementById('jobDesc').value.trim();
+var ty=document.getElementById('jobType').value;
+if(!t||!c){alert('Enter Job Title and Company');return;}
+var code=prompt('💼 POST JOB\n\nPay 99 BOB\nM-Pesa: 0705991406 (Winnie CEO)\nPaste Code after paying:');
 if(!code||code.length<5){alert('Need 99 to 0705991406');return;}
-jobs.unshift({id:Date.now(),title:t,company:c,location:document.getElementById('jl').value||'Embu',desc:document.getElementById('jd').value||'Great',postedBy:cur.name});
-localStorage.setItem('jobs',JSON.stringify(jobs));
-alert('Posted 99 to 0705991406 Code:'+code);
-render();
-tab('eD');
+var newJob={id:Date.now(),title:t,company:c,location:l||'Embu',type:ty,desc:d||'Great opportunity',postedBy:currentUser.name||currentUser.email};
+allJobs.unshift(newJob);
+saveJobs();
+document.getElementById('jobTitle').value='';
+document.getElementById('jobCompany').value='';
+document.getElementById('jobLocation').value='';
+document.getElementById('jobDesc').value='';
+alert('✅ Job Posted! 99 to 0705991406 Code:'+code+'\nStudents can now apply.');
+renderAll();
+switchTab('tabEDash','nEDash');
 }
-function out(){localStorage.removeItem('cur');location.reload();}
-var sv=localStorage.getItem('cur');
-if(sv){cur=JSON.parse(sv);show();}
-upd();
+function doLogout(){localStorage.removeItem('cc_cur');location.reload();}
+loadAll();
+var savedCur=localStorage.getItem('cc_cur');
+if(savedCur){try{currentUser=JSON.parse(savedCur);showApp();}catch(e){}}
+setR('student');
 </script>
 </body>
-</html>
+  </html>
