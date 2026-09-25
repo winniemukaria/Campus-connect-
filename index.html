@@ -58,4 +58,186 @@ body{background:#f1f5f9;padding-bottom:80px}
 <div id="login" class="tab-content">
 <div class="auth-box">
 <h2 style="color:#1e3a8a;text-align:center">Login</h2>
-<input id="loginEmail" class="input" placeholder="Email
+<input id="loginEmail" class="input" placeholder="Email">
+<input id="loginPass" type="password" class="input" placeholder="Password">
+<button class="save-btn" onclick="login()">Login →</button>
+<p style="text-align:center;margin-top:12px;font-size:13px">No account? <b style="color:#1e3a8a;cursor:pointer" onclick="showSignup()">Signup</b></p>
+</div>
+</div>
+
+<div class="header" id="mainHeader" style="display:none">
+<div style="display:flex;align-items:center;gap:10px"><img src="winnie.jpg" style="width:40px;height:40px;border-radius:50%;border:2px solid #f97316"><div><div id="headerName" style="font-weight:bold;color:#1e3a8a">Winnie</div><small id="headerSub" style="color:#64748b">BCom</small></div></div>
+<button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<!-- STUDENT PAGES -->
+<div id="profile" class="tab-content" data-tab>
+<div style="text-align:center;padding:20px"><img src="winnie.jpg" style="width:120px;height:120px;border-radius:50%;border:4px solid #f97316"><h2 id="profileName" style="color:#1e3a8a;margin-top:12px"></h2><div id="profileBadge" style="background:#1e3a8a;color:white;padding:6px 16px;border-radius:20px;display:inline-block;margin-top:8px"></div><div style="margin-top:16px;text-align:left;background:white;padding:16px;border-radius:12px"><p><b>Name:</b> <span id="pName"></span></p><p><b>University/Company:</b> <span id="pUni"></span></p><p><b>Course/Role:</b> <span id="pCourse"></span></p></div><button class="save-btn" onclick="showTab('dashboard')">Go to Dashboard →</button></div>
+</div>
+<div id="dashboard" class="tab-content" data-tab>
+<div style="background:#1e3a8a;color:white;border-radius:16px;padding:20px"><h2>Hi, <span id="bannerName">Winnie</span>! 👋</h2><p id="bannerCount"></p><button style="background:white;color:#1e3a8a;border:none;padding:10px 16px;border-radius:20px;margin-top:10px;font-weight:bold;cursor:pointer" onclick="showTab('opportunities')">Browse Jobs</button></div>
+</div>
+<div id="opportunities" class="tab-content" data-tab><h3 style="color:#1e3a8a;margin-bottom:12px">Opportunities for <span id="oppCourse">You</span></h3><div id="opportunities-list" style="display:flex;flex-direction:column;gap:12px"></div></div>
+<div id="matches" class="tab-content" data-tab><h3 style="color:#1e3a8a">Best Matches</h3><div id="matches-list" style="display:flex;flex-direction:column;gap:12px"></div></div>
+<div id="saved" class="tab-content" data-tab><h3 style="color:#1e3a8a">My Applications</h3><div id="saved-list" style="display:flex;flex-direction:column;gap:12px"></div></div>
+
+<!-- EMPLOYER PAGES -->
+<div id="employerDash" class="tab-content" data-tab>
+<div style="background:#f97316;color:white;border-radius:16px;padding:20px"><h2>Employer Dashboard 🏢</h2><p>Post opportunities, students will see instantly!</p></div>
+<div class="card"><h3>Post New Opportunity</h3>
+<input id="jobTitle" class="input" placeholder="Job Title e.g. Finance Intern">
+<input id="jobCompany" class="input" placeholder="Company Name">
+<select id="jobType" class="input"><option>Internship</option><option>Part-Time</option><option>Attachment</option><option>Full-Time</option></select>
+<select id="jobCourse" class="input"><option value="BCom,BBIT">For: BCom, BBIT</option><option value="IT,BBIT,Engineering">For: IT, BBIT, Engineering</option><option value="BCom,Marketing">For: BCom, Marketing</option><option value="Education">For: Education</option><option value="BCom,BBIT,IT,Marketing,Education,Engineering">For: All Courses</option></select>
+<input id="jobLocation" class="input" placeholder="Location e.g. Nairobi / Remote / Embu">
+<textarea id="jobDesc" class="input" rows="2" placeholder="Description - What will intern do?"></textarea>
+<textarea id="jobReq" class="input" rows="2" placeholder="Requirements - e.g. Excel, Year 2+, Good communication"></textarea>
+<button class="apply-btn" onclick="postJob()">Post Opportunity → Students See It Now 🚀</button>
+</div>
+<h3 style="color:#1e3a8a;margin:16px 0 8px">Your Posted Jobs (<span id="myJobsCount">0</span>)</h3>
+<div id="myJobsList" style="display:flex;flex-direction:column;gap:12px"></div>
+<h3 style="color:#1e3a8a;margin:16px 0 8px">Applications Received (<span id="appCount">0</span>)</h3>
+<div id="allAppsList" style="display:flex;flex-direction:column;gap:12px"></div>
+</div>
+
+<div class="bottom-nav" id="bottomNav" style="display:none">
+<button class="tab-btn" data-goto="dashboard" onclick="showTab('dashboard')">🏠<span>Home</span></button>
+<button class="tab-btn" data-goto="opportunities" onclick="showTab('opportunities')">💼<span>Jobs</span></button>
+<button class="tab-btn" data-goto="matches" onclick="showTab('matches')">❤️<span>Match</span></button>
+<button class="tab-btn" data-goto="saved" onclick="showTab('saved')">📄<span>Applied</span></button>
+<button class="tab-btn active" data-goto="profile" onclick="showTab('profile')">👤<span>Me</span></button>
+</div>
+<div class="bottom-nav" id="employerNav" style="display:none">
+<button class="tab-btn active" data-goto="employerDash" onclick="showTab('employerDash')">🏢<span>Dashboard</span></button>
+<button class="tab-btn" data-goto="profile" onclick="showTab('profile')">👤<span>Profile</span></button>
+</div>
+
+<div id="detailsModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('detailsModal')">×</span><h2 id="dTitle" style="color:#1e3a8a"></h2><div id="dBadges" style="margin:10px 0"></div><p id="dLocation" style="color:#64748b"></p><p id="dDesc" style="margin:12px 0;line-height:1.5"></p><div style="background:#f8fafc;padding:12px;border-radius:8px"><b>Requirements:</b><br><span id="dReq"></span></div><button class="apply-btn" onclick="openApply()">Apply Now →</button></div></div>
+<div id="applyModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('applyModal')">×</span><h2 style="color:#1e3a8a">Apply for <span id="aTitle"></span></h2><input id="aName" class="input" placeholder="Full Name"><input id="aEmail" class="input" placeholder="Email"><input id="aPhone" class="input" placeholder="Phone"><input id="aSkills" class="input" placeholder="Skills e.g. Excel, Marketing"><textarea id="aCover" class="input" rows="3" placeholder="Why hire you?"></textarea><label style="font-size:13px;font-weight:bold;color:#1e3a8a">Upload CV</label><input type="file" id="aCV" class="input"><textarea id="aBio" class="input" rows="2" placeholder="Short Bio"></textarea><button class="apply-btn" onclick="submitApplication()">Submit Application ✅</button></div></div>
+
+<script>
+let defaultJobs=[
+{id:1,title:"Finance Intern - Equity Bank",company:"Equity Bank",location:"Nairobi",type:"Internship",forCourses:["BCom","BBIT"],matchMap:{"BCom":95,"BBIT":85},desc:"3 months internship finance team.",req:"BCom student, Excel"},
+{id:2,title:"Marketing Assistant",company:"Safaricom",location:"Remote",type:"Part-Time",forCourses:["BCom","Marketing"],matchMap:{"BCom":92,"Marketing":95},desc:"Part-time 20hrs/week remote.",req:"Marketing/BCom, Canva"},
+{id:3,title:"IT Support Attaché",company:"KCB",location:"Embu",type:"Attachment",forCourses:["IT","BBIT"],matchMap:{"IT":96,"BBIT":90},desc:"Industrial attachment IT dept.",req:"IT Year 2+"}
+];
+if(!localStorage.getItem('allOpportunities')){localStorage.setItem('allOpportunities',JSON.stringify(defaultJobs));}
+let opportunities=JSON.parse(localStorage.getItem('allOpportunities'));
+let currentUser=JSON.parse(localStorage.getItem('currentUser')||'null');
+let applications=JSON.parse(localStorage.getItem('myApplications')||'[]');
+let allApplications=JSON.parse(localStorage.getItem('allApplications')||'[]');
+let currentRole='student';let currentOpp=null;
+
+function setRole(r){currentRole=r;document.getElementById('roleStudent').classList.toggle('active',r==='student');document.getElementById('roleEmployer').classList.toggle('active',r==='employer');document.getElementById('studentFields').style.display=r==='student'?'block':'none';document.getElementById('employerFields').style.display=r==='employer'?'block':'none';}
+function init(){if(!currentUser){document.getElementById('auth').classList.add('active');}else showMainApp();}
+function showSignup(){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.getElementById('auth').classList.add('active');}
+function showLogin(){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.getElementById('login').classList.add('active');}
+window.signup=function(){
+let email=document.getElementById('emailIn').value.trim();
+let pass=document.getElementById('passIn').value.trim();
+if(!email||!pass){alert('Fill email & password');return;}
+let user={email,pass,role:currentRole};
+if(currentRole==='student'){
+let name=document.getElementById('nameIn').value.trim();
+let uni=document.getElementById('uniIn').value.trim();
+let course=document.getElementById('courseIn').value;
+let year=document.getElementById('yearIn').value;
+if(!name||!uni||!course){alert('Fill all student fields');return;}
+user.name=name;user.uni=uni;user.course=course;user.year=year;
+}else{
+let comp=document.getElementById('compIn').value.trim();
+let contact=document.getElementById('contactIn').value.trim();
+if(!comp||!contact){alert('Fill company fields');return;}
+user.name=contact;user.company=comp;user.uni=comp;user.course='Employer';
+}
+localStorage.setItem('currentUser',JSON.stringify(user));
+localStorage.setItem('user_'+email,JSON.stringify(user));
+currentUser=user;showMainApp();
+}
+window.login=function(){
+let email=document.getElementById('loginEmail').value.trim();
+let pass=document.getElementById('loginPass').value.trim();
+let user=JSON.parse(localStorage.getItem('user_'+email)||'null');
+if(!user||user.pass!==pass){alert('Wrong email/password. Signup first.');return;}
+currentUser=user;localStorage.setItem('currentUser',JSON.stringify(user));showMainApp();
+}
+function showMainApp(){
+document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+document.getElementById('mainHeader').style.display='flex';
+let u=currentUser;
+document.getElementById('headerName').innerText=u.role==='employer'?u.company:u.name.split(' ')[0];
+document.getElementById('headerSub').innerText=u.role==='employer'?'Employer':u.course;
+document.getElementById('profileName').innerText=u.role==='employer'?u.company:u.name;
+document.getElementById('pName').innerText=u.name;
+document.getElementById('pUni').innerText=u.uni;
+document.getElementById('pCourse').innerText=u.course+(u.year?' • '+u.year:'');
+document.getElementById('profileBadge').innerText=u.role==='employer'?u.company+' • Employer':u.course+' • '+(u.year||'Year 1');
+if(u.role==='employer'){
+document.getElementById('employerNav').style.display='flex';
+document.getElementById('bottomNav').style.display='none';
+document.getElementById('employerDash').classList.add('active');
+renderEmployer();
+}else{
+document.getElementById('bottomNav').style.display='flex';
+document.getElementById('employerNav').style.display='none';
+document.getElementById('profile').classList.add('active');
+document.getElementById('bannerName').innerText=u.name.split(' ')[0];
+document.getElementById('oppCourse').innerText=u.course;
+let f=getFiltered();
+document.getElementById('bannerCount').innerText='Found '+f.length+' opportunities for '+u.course;
+renderAll();
+}
+}
+function getFiltered(){
+if(!currentUser||currentUser.role==='employer') return opportunities;
+let c=currentUser.course;
+let f=opportunities.filter(o=>o.forCourses.includes(c));
+return f.length?f:opportunities;
+}
+function getMatch(o){if(!currentUser||currentUser.role==='employer') return 90; return o.matchMap[currentUser.course]||60;}
+window.showTab=function(name){
+document.querySelectorAll('[data-tab]').forEach(el=>el.classList.remove('active'));
+let t=document.getElementById(name);
+if(t){t.classList.add('active');window.scrollTo(0,0);}
+if(currentUser.role==='employer' && name==='employerDash') renderEmployer();
+}
+function renderAll(){
+let filtered=getFiltered();
+document.getElementById('opportunities-list').innerHTML=filtered.map(o=>`<div class="card" onclick="openDetails(${o.id})"><b>${o.title}</b><br><small>${o.company} • ${o.location}</small><br><span class="type-badge type-${o.type}">${o.type}</span><span style="background:#dbeafe;color:#1e3a8a;padding:4px 10px;border-radius:12px;font-size:11px">${getMatch(o)}% Match</span><div style="margin-top:8px;color:#1e3a8a;font-weight:bold;font-size:13px">View & Apply →</div></div>`).join('');
+document.getElementById('matches-list').innerHTML=filtered.sort((a,b)=>getMatch(b)-getMatch(a)).map(o=>`<div class="card" onclick="openDetails(${o.id})" style="border-left:4px solid #1e3a8a"><b>${o.title}</b> <span class="type-badge type-${o.type}">${o.type}</span><br><small>${o.company}</small><br><b>${getMatch(o)}% Match</b></div>`).join('');
+let s=document.getElementById('saved-list');
+if(applications.length===0){s.innerHTML='<div class="card">No applications yet.</div>';}else{s.innerHTML=applications.map(a=>`<div class="card"><b>${a.title}</b><br><small>${a.company} • ${a.type} • ${a.date}</small><br><span style="background:#dcfce7;color:#166534;padding:4px 8px;border-radius:12px;font-size:11px">✅ Sent</span></div>`).join('');}
+}
+function renderEmployer(){
+opportunities=JSON.parse(localStorage.getItem('allOpportunities')||'[]');
+allApplications=JSON.parse(localStorage.getItem('allApplications')||'[]');
+let myJobs=opportunities.filter(j=>j.postedBy===currentUser.email);
+document.getElementById('myJobsCount').innerText=myJobs.length;
+document.getElementById('appCount').innerText=allApplications.filter(a=>myJobs.some(j=>j.id===a.jobId)).length;
+document.getElementById('myJobsList').innerHTML=myJobs.length?myJobs.map(j=>`<div class="card"><b>${j.title}</b> <span class="type-badge type-${j.type}">${j.type}</span><br><small>${j.location} • For ${j.forCourses.join(', ')}</small></div>`).join(''):'<div class="card">No jobs posted yet. Post your first job above!</div>';
+let myApps=allApplications.filter(a=>myJobs.some(j=>j.id===a.jobId));
+document.getElementById('allAppsList').innerHTML=myApps.length?myApps.map(a=>`<div class="card"><b>${a.studentName}</b> applied for <b>${a.title}</b><br><small>${a.email} • ${a.phone}<br>Skills: ${a.skills}<br>Bio: ${a.bio}<br>CV: ${a.cvName}</small></div>`).join(''):'<div class="card">No applications yet. Share your job link to students!</div>';
+}
+window.postJob=function(){
+let title=document.getElementById('jobTitle').value.trim();
+let company=document.getElementById('jobCompany').value.trim()||currentUser.company;
+let type=document.getElementById('jobType').value;
+let courses=document.getElementById('jobCourse').value.split(',');
+let loc=document.getElementById('jobLocation').value.trim();
+let desc=document.getElementById('jobDesc').value.trim();
+let req=document.getElementById('jobReq').value.trim();
+if(!title||!loc||!desc){alert('Fill Title, Location, Description');return;}
+let newJob={id:Date.now(),title,company,location:loc,type,forCourses:courses,matchMap:{},desc,req,postedBy:currentUser.email};
+courses.forEach(c=>newJob.matchMap[c.trim()]=90);
+opportunities=JSON.parse(localStorage.getItem('allOpportunities')||'[]');
+opportunities.unshift(newJob);
+localStorage.setItem('allOpportunities',JSON.stringify(opportunities));
+alert('🚀 Job Posted! Students with '+courses.join(', ')+' will see it now!');
+document.getElementById('jobTitle').value='';document.getElementById('jobDesc').value='';document.getElementById('jobReq').value='';
+renderEmployer();
+}
+window.openDetails=function(id){
+opportunities=JSON.parse(localStorage.getItem('allOpportunities')||'[]');
+currentOpp=opportunities.find(o=>o.id===id);
+document.getElementById('dTitle').innerText=currentOpp.title;
+document.getElementById
