@@ -32,118 +32,37 @@ body{background:#f1f5f9;padding-bottom:80px}
 </style>
 </head>
 <body>
-
 <div class="header">
-  <div class="header-left">
-    <img src="winnie.jpg" alt="Winnie">
-    <div>
-      <div style="font-weight:bold;color:#1e3a8a">Winnie Mukaria <span class="badge">Founder</span></div>
-      <small style="color:#64748b">Founder & CEO</small>
-    </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px">
-    <div>🔔</div>
-    <button class="logout-btn" onclick="logout()">Logout</button>
-  </div>
+<div class="header-left">
+<img src="winnie.jpg" alt="Winnie">
+<div>
+<div style="font-weight:bold;color:#1e3a8a">Winnie Mukaria <span class="badge">Founder</span></div>
+<small style="color:#64748b">Founder & CEO</small>
 </div>
-
-<!-- PROFILE FIRST -->
+</div>
+<div style="display:flex;align-items:center;gap:12px">
+<div>🔔</div>
+<button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+</div>
 <div id="profile" class="tab-content active" data-tab>
-  <div style="text-align:center;padding:20px">
-    <img src="winnie.jpg" style="width:140px;height:140px;border-radius:50%;border:4px solid #f97316;object-fit:cover">
-    <h2 style="color:#1e3a8a;margin-top:12px">Winnie Mukaria</h2>
-    <span style="background:#1e3a8a;color:white;padding:6px 16px;border-radius:20px;display:inline-block;margin-top:8px">Founder & CEO</span>
-    <div style="margin-top:20px;text-align:left;background:white;padding:16px;border-radius:12px">
-      <p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>Name:</b> Winnie Mukaria</p>
-      <p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>University:</b> University of Embu</p>
-      <p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>Course:</b> Bachelor of Commerce</p>
-      <p style="padding:8px 0"><b>Year of Study:</b> Year 1</p>
-    </div>
-    <button class="save-btn" style="margin-top:16px" onclick="showTab('dashboard')">Proceed to Dashboard →</button>
-    <button onclick="logout()" style="width:100%;background:white;color:#dc2626;border:1px solid #fecaca;padding:12px;border-radius:8px;margin-top:10px;font-weight:bold;cursor:pointer">Logout</button>
-  </div>
+<div style="text-align:center;padding:20px">
+<img src="winnie.jpg" style="width:140px;height:140px;border-radius:50%;border:4px solid #f97316;object-fit:cover">
+<h2 style="color:#1e3a8a;margin-top:12px">Winnie Mukaria</h2>
+<span style="background:#1e3a8a;color:white;padding:6px 16px;border-radius:20px;display:inline-block;margin-top:8px">Founder & CEO</span>
+<div style="margin-top:20px;text-align:left;background:white;padding:16px;border-radius:12px">
+<p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>Name:</b> Winnie Mukaria</p>
+<p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>University:</b> University of Embu</p>
+<p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>Course:</b> Bachelor of Commerce</p>
+<p style="padding:8px 0"><b>Year of Study:</b> Year 1</p>
 </div>
-
+<button class="save-btn" style="margin-top:16px" onclick="showTab('dashboard')">Proceed to Dashboard →</button>
+<button onclick="logout()" style="width:100%;background:white;color:#dc2626;border:1px solid #fecaca;padding:12px;border-radius:8px;margin-top:10px;font-weight:bold;cursor:pointer">Logout</button>
+</div>
+</div>
 <div id="dashboard" class="tab-content" data-tab>
-  <div class="banner">
-    <div style="display:flex;align-items:center;gap:8px"><span style="background:#22c55e;width:8px;height:8px;border-radius:50%;display:inline-block"></span> LIVE on Vercel! Backend Connected</div>
-    <h2>Welcome, Winnie Mukaria!</h2>
-    <p>We found 50 opportunities that match your profile</p>
-    <button class="btn-white" onclick="showTab('opportunities')">Find opportunities</button>
-    <button class="btn-orange" onclick="showTab('matches')">View matches</button>
-  </div>
-  <div class="stats">
-    <div class="stat"><div><b>500+</b><br><small>Students Registered</small></div><div>🎓</div></div>
-    <div class="stat"><div><b>50+</b><br><small>Opportunities Posted</small></div><div>💼</div></div>
-  </div>
-</div>
-
-<div id="opportunities" class="tab-content" data-tab>
-  <h3 style="margin-bottom:12px;color:#1e3a8a">Latest Opportunities</h3>
-  <div id="opportunities-list" class="list-vertical"></div>
-</div>
-
-<div id="matches" class="tab-content" data-tab>
-  <h3 style="margin-bottom:12px;color:#1e3a8a">Your Matches</h3>
-  <p style="margin-bottom:12px;color:#64748b">Based on your skills → 3 matches found</p>
-  <div id="matches-list" class="list-vertical"></div>
-</div>
-
-<div id="saved" class="tab-content" data-tab>
-  <h3 style="margin-bottom:12px;color:#1e3a8a">Saved Opportunities</h3>
-  <div id="saved-list" class="list-vertical"></div>
-</div>
-
-<div class="bottom-nav">
-  <button class="tab-btn" data-goto="dashboard" onclick="showTab('dashboard')">🏠<span>Dashboard</span></button>
-  <button class="tab-btn" data-goto="opportunities" onclick="showTab('opportunities')">💼<span>Opportunities</span></button>
-  <button class="tab-btn" data-goto="matches" onclick="showTab('matches')">❤️<span>Matches</span></button>
-  <button class="tab-btn" data-goto="saved" onclick="showTab('saved')">🔖<span>Saved</span></button>
-  <button class="active tab-btn" data-goto="profile" onclick="showTab('profile')">👤<span>Profile</span></button>
-</div>
-
-<script>
-let opportunities=[
-  {id:1,title:"Finance Intern - Equity Bank",location:"Nairobi • BCom students • Apply now",match:"95% Match"},
-  {id:2,title:"Marketing Assistant - Safaricom",location:"Remote • Year 2-4 • Marketing",match:"92% Match"},
-  {id:3,title:"IT Support Attaché - KCB Bank",location:"Embu • IT • Year 3",match:"88% Match"}
-];
-let saved=JSON.parse(localStorage.getItem('saved')||'[]');
-function showTab(name){
-  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.goto===name));
-  if(name==='opportunities') renderOpps();
-  if(name==='matches') renderMatches();
-  if(name==='saved') renderSaved();
-}
-function renderOpps(){
-  document.getElementById('opportunities-list').innerHTML=opportunities.map(o=>`
-    <div class="card"><b>${o.title}</b><br><small>${o.location}</small><button class="save-btn" onclick="saveOpp(${o.id})">Save Opportunity</button></div>
-  `).join('');
-}
-function renderMatches(){
-  document.getElementById('matches-list').innerHTML=opportunities.map(o=>`
-    <div class="card" style="border-left:4px solid #1e3a8a"><b>${o.title}</b><br><small>${o.location}</small><br><span style="background:#dbeafe;color:#1e3a8a;padding:4px 10px;border-radius:12px;font-size:12px;display:inline-block;margin-top:6px">${o.match}</span></div>
-  `).join('');
-}
-function saveOpp(id){
-  if(!saved.includes(id)){saved.push(id);localStorage.setItem('saved',JSON.stringify(saved));alert('Saved! Go to Saved tab')}
-}
-function renderSaved(){
-  let c=document.getElementById('saved-list');
-  if(saved.length===0){c.innerHTML='<div class="card"><p>Your saved opportunities will appear here.</p></div>';return}
-  let list=opportunities.filter(o=>saved.includes(o.id));
-  c.innerHTML=list.map(o=>`<div class="card"><b>${o.title}</b><br><small>${o.location}</small></div>`).join('');
-}
-function logout(){
-  if(confirm('Logout from CampusConnect?')){
-    localStorage.clear();
-    alert('Logged out! Bye Winnie 👋');
-    location.reload();
-  }
-}
-renderOpps();
-</script>
-</body>
-</html>
+<div class="banner">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:#22c55e;width:8px;height:8px;border-radius:50%;display:inline-block"></span> LIVE on Vercel!</div>
+<h2>Welcome, Winnie Mukaria!</h2>
+<p>We found 50 opportunities that match your profile</p>
+<button class="btn-white" onclick="showTab('opportunities')">Find opportunities</button
