@@ -65,4 +65,79 @@ body{background:#f1f5f9;padding-bottom:80px}
 <div style="display:flex;align-items:center;gap:8px"><span style="background:#22c55e;width:8px;height:8px;border-radius:50%;display:inline-block"></span> LIVE on Vercel!</div>
 <h2>Welcome, Winnie Mukaria!</h2>
 <p>We found 50 opportunities that match your profile</p>
-<button class="btn-white" onclick="showTab('opportunities')">Find opportunities</button
+<button class="btn-white" onclick="showTab('opportunities')">Find opportunities</button>
+<button class="btn-orange" onclick="showTab('matches')">View matches</button>
+</div>
+<div class="stats">
+<div class="stat"><div><b>500+</b><br><small>Students Registered</small></div><div>🎓</div></div>
+<div class="stat"><div><b>50+</b><br><small>Opportunities Posted</small></div><div>💼</div></div>
+</div>
+</div>
+<div id="opportunities" class="tab-content" data-tab>
+<h3 style="margin-bottom:12px;color:#1e3a8a">Latest Opportunities</h3>
+<div id="opportunities-list" class="list-vertical"></div>
+</div>
+<div id="matches" class="tab-content" data-tab>
+<h3 style="margin-bottom:12px;color:#1e3a8a">Your Matches</h3>
+<p style="margin-bottom:12px;color:#64748b">Based on your skills → 3 matches found</p>
+<div id="matches-list" class="list-vertical"></div>
+</div>
+<div id="saved" class="tab-content" data-tab>
+<h3 style="margin-bottom:12px;color:#1e3a8a">Saved Opportunities</h3>
+<div id="saved-list" class="list-vertical"></div>
+</div>
+<div class="bottom-nav">
+<button class="tab-btn" data-goto="dashboard" onclick="showTab('dashboard')">🏠<span>Dashboard</span></button>
+<button class="tab-btn" data-goto="opportunities" onclick="showTab('opportunities')">💼<span>Opportunities</span></button>
+<button class="tab-btn" data-goto="matches" onclick="showTab('matches')">❤️<span>Matches</span></button>
+<button class="tab-btn" data-goto="saved" onclick="showTab('saved')">🔖<span>Saved</span></button>
+<button class="active tab-btn" data-goto="profile" onclick="showTab('profile')">👤<span>Profile</span></button>
+</div>
+<script>
+let opportunities=[
+{id:1,title:"Finance Intern - Equity Bank",location:"Nairobi • BCom students • Apply now",match:"95% Match"},
+{id:2,title:"Marketing Assistant - Safaricom",location:"Remote • Year 2-4 • Marketing",match:"92% Match"},
+{id:3,title:"IT Support Attaché - KCB Bank",location:"Embu • IT • Year 3",match:"88% Match"}
+];
+let saved=JSON.parse(localStorage.getItem('saved')||'[]');
+window.showTab=function(name){
+document.querySelectorAll('[data-tab]').forEach(el=>el.classList.remove('active'));
+let target=document.getElementById(name);
+if(target){target.classList.add('active');window.scrollTo(0,0);}
+document.querySelectorAll('.tab-btn').forEach(b=>{
+b.classList.remove('active');
+if(b.dataset.goto===name) b.classList.add('active');
+});
+if(name==='opportunities') renderOpps();
+if(name==='matches') renderMatches();
+if(name==='saved') renderSaved();
+};
+function renderOpps(){
+let el=document.getElementById('opportunities-list');
+if(!el) return;
+el.innerHTML=opportunities.map(o=>`<div class="card"><b>${o.title}</b><br><small>${o.location}</small><button class="save-btn" onclick="saveOpp(${o.id})">Save Opportunity</button></div>`).join('');
+}
+function renderMatches(){
+let el=document.getElementById('matches-list');
+if(!el) return;
+el.innerHTML=opportunities.map(o=>`<div class="card" style="border-left:4px solid #1e3a8a"><b>${o.title}</b><br><small>${o.location}</small><br><span style="background:#dbeafe;color:#1e3a8a;padding:4px 10px;border-radius:12px;font-size:12px;display:inline-block;margin-top:6px">${o.match}</span></div>`).join('');
+}
+window.saveOpp=function(id){
+if(!saved.includes(id)){saved.push(id);localStorage.setItem('saved',JSON.stringify(saved));alert('Saved! Check Saved tab ✅')}
+};
+function renderSaved(){
+let c=document.getElementById('saved-list');
+if(!c) return;
+if(saved.length===0){c.innerHTML='<div class="card"><p>Your saved opportunities will appear here.</p></div>';return}
+let list=opportunities.filter(o=>saved.includes(o.id));
+c.innerHTML=list.map(o=>`<div class="card"><b>${o.title}</b><br><small>${o.location}</small></div>`).join('');
+}
+window.logout=function(){
+localStorage.clear();
+alert('Logged out! Bye Winnie 👋');
+location.reload();
+};
+renderOpps();
+</script>
+</body>
+</html>
