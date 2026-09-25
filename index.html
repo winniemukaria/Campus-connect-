@@ -1,69 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CampusConnect - Winnie Mukaria</title>
 <style>
-:root{--blue:#1e40af;--orange:#f97316;--light:#f0f7ff}
-body{margin:0;font-family:Arial;background:var(--light)}
-.header{background:var(--blue);color:white;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
-.header b{color:var(--orange)}
-.card{background:white;max-width:460px;margin:14px auto;padding:18px;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.08);border-top:4px solid var(--orange)}
-input,select{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}
-.btn{width:100%;padding:12px;background:var(--blue);color:white;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
-.btn-o{background:var(--orange)}
-.founder{display:flex;gap:12px;align-items:center;background:#fff7ed;border:1px solid #ffedd5;border-radius:14px;padding:10px;margin-bottom:12px}
-.founder img{width:78px;height:78px;border-radius:50%;border:3px solid var(--orange);object-fit:cover}
-.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
-.hero div{background:var(--blue);color:white;padding:12px;border-radius:12px;text-align:center}
-.hero div:nth-child(2){background:var(--orange)}
-.hero div b{font-size:20px;display:block}
-.nav{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}
-.nav button{flex:1;min-width:60px;padding:8px;border-radius:20px;border:1px solid var(--blue);background:white;color:var(--blue);cursor:pointer;font-size:12px}
-.nav button.active{background:var(--blue);color:white}
-.hidden{display:none}
-.feature{border:1px solid #eee;border-radius:12px;padding:10px;margin:8px 0}
-.feature b{color:var(--blue)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f1f5f9;padding-bottom:80px}
+.header{background:white;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:10}
+.header-left{display:flex;align-items:center;gap:10px}
+.header-left img{width:48px;height:48px;border-radius:50%;border:3px solid #f97316;object-fit:cover}
+.badge{font-size:12px;background:#dbeafe;color:#1e3a8a;padding:2px 8px;border-radius:10px;font-weight:bold}
+.banner{background:#1e3a8a;color:white;margin:16px;border-radius:16px;padding:20px}
+.banner h2{margin:8px 0}
+.banner button{padding:10px 16px;border-radius:20px;border:none;margin:6px 6px 0 0;font-weight:bold;cursor:pointer}
+.btn-white{background:white;color:#1e3a8a}
+.btn-orange{background:#f97316;color:white}
+.stats{display:flex;flex-direction:column;gap:12px;margin:16px}
+.stat{background:white;padding:16px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.tab-content{display:none;margin:16px}
+.tab-content.active{display:block}
+.card{background:white;padding:16px;border-radius:12px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.1);width:100%}
+.card b{color:#1e3a8a}
+.card small{color:#64748b}
+.save-btn{width:100%;background:#f97316;color:white;border:none;padding:12px;border-radius:8px;margin-top:10px;font-weight:bold;cursor:pointer}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #e2e8f0}
+.bottom-nav button{background:none;border:none;font-size:12px;color:#64748b;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.bottom-nav button.active{color:#1e3a8a;font-weight:bold}
+.list-vertical{display:flex;flex-direction:column;gap:12px;width:100%}
 </style>
 </head>
 <body>
-<div class="header"><h2 style="margin:0">Campus<b>Connect</b></h2><small>Founder: Winnie Mukaria • UoEm BCom</small></div>
 
-<div id="authView" class="card">
-<h3 id="authTitle" style="color:var(--blue)">Welcome back!</h3>
-<div id="loginForm"><input id="l_email" value="winnie@test.com" placeholder="Email"><input id="l_pass" type="password" value="12345678" placeholder="Password"><button class="btn" onclick="doLogin()">Log in</button><p style="text-align:center;font-size:13px"><a href="#" onclick="toggleAuth()">Don't have account? Create student account</a></p></div>
-<div id="regForm" class="hidden"><input id="r_name" placeholder="Full Name - e.g. Winnie Mukaria"><input id="r_email" placeholder="Email"><input id="r_pass" type="password" placeholder="Password"><input id="r_uni" placeholder="University"><input id="r_course" placeholder="Course"><select id="r_year"><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option></select><input id="r_skills" placeholder="Skills - e.g. Excel, Accounting"><input id="r_interests" placeholder="Interests"><button class="btn btn-o" onclick="doReg()">Create Account</button><p style="text-align:center;font-size:13px"><a href="#" onclick="toggleAuth()">Already have account? Login</a></p></div>
-<p id="msg" style="color:green;text-align:center"></p>
+<div class="header">
+  <div class="header-left">
+    <img src="winnie.jpg" alt="Winnie">
+    <div>
+      <div style="font-weight:bold;color:#1e3a8a">Winnie Mukaria <span class="badge">Founder</span></div>
+      <small style="color:#64748b">Founder & CEO</small>
+    </div>
+  </div>
+  <div>🔔</div>
 </div>
 
-<div id="dashView" class="card hidden">
-<div class="founder"><img src="winnie.jpg" onerror="this.src='https://via.placeholder.com/78?text=WM'" alt="Winnie Mukaria"><div><b style="color:var(--blue)">Winnie Mukaria</b><br><span style="background:var(--orange);color:white;padding:2px 8px;border-radius:10px;font-size:11px">Founder</span><br><small>Connecting students to opportunities</small></div></div>
+<div id="dashboard" class="tab-content active" data-tab>
+  <div class="banner">
+    <div style="display:flex;align-items:center;gap:8px"><span style="background:#22c55e;width:8px;height:8px;border-radius:50%;display:inline-block"></span> LIVE on Vercel! Backend Connected Users: 1</div>
+    <h2>Welcome, Winnie Mukaria!</h2>
+    <p>We found 50 opportunities that match your BCom, Marketing profile</p>
+    <button class="btn-white" onclick="showTab('opportunities')">Find opportunities</button>
+    <button class="btn-orange" onclick="showTab('matches')">View matches</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div><b>500+</b><br><small>Students Registered</small></div><div>🎓</div></div>
+    <div class="stat"><div><b>50+</b><br><small>Opportunities Posted</small></div><div>💼</div></div>
+  </div>
+</div>
 
-<div class="hero"><div><b>500+</b>Students</div><div><b>50+</b>Opportunities</div><div><b>● Live</b>Matches</div></div>
+<div id="opportunities" class="tab-content" data-tab>
+  <h3 style="margin-bottom:12px;color:#1e3a8a">Latest Opportunities</h3>
+  <div id="opportunities-list" class="list-vertical"></div>
+</div>
 
-<div class="nav"><button id="b-home" class="active" onclick="showTab('home')">Dashboard</button><button id="b-opp" onclick="showTab('opp')">Opportunities</button><button id="b-match" onclick="showTab('match')">Matches</button><button id="b-saved" onclick="showTab('saved')">Saved</button><button id="b-profile" onclick="showTab('profile')">Profile</button><button onclick="logout()" style="border-color:red;color:red">Logout</button></div>
+<div id="matches" class="tab-content" data-tab>
+  <h3 style="margin-bottom:12px;color:#1e3a8a">Your Matches</h3>
+  <p style="margin-bottom:12px;color:#64748b">Based on your skills → 3 matches found</p>
+  <div id="matches-list" class="list-vertical"></div>
+</div>
 
-<div id="tab-home"><h4 id="welcome" style="color:var(--blue)"></h4><p>🎉 Your CampusConnect is LIVE on Vercel!</p><div class="feature"><b>🌟 Hero Students</b><br><small>Top performing students get featured here. Build your profile with skills & interests to be a hero!</small></div><div class="feature"><b>💼 Latest Opportunities</b><br><small>Internships, attachments, part-time jobs matched to your course - BCom, IT, Education etc.</small></div><p id="apiStatus" style="font-size:11px;color:#888"></p></div>
+<div id="saved" class="tab-content" data-tab>
+  <h3 style="margin-bottom:12px;color:#1e3a8a">Saved Opportunities</h3>
+  <div id="saved-list" class="list-vertical"></div>
+</div>
 
-<div id="tab-opp" class="hidden"><h4 style="color:var(--blue)">Opportunities</h4><div class="feature"><b>Finance Intern - Equity Bank</b><br><small>Nairobi • BCom students • Apply now</small><br><button class="btn btn-o" style="margin-top:6px;padding:6px">Save</button></div><div class="feature"><b>Marketing Assistant - Safaricom</b><br><small>Remote • Year 2-4 • Marketing</small><br><button class="btn btn-o" style="margin-top:6px;padding:6px">Save</button></div></div>
+<div id="profile" class="tab-content" data-tab>
+  <div style="text-align:center;padding:20px">
+    <img src="winnie.jpg" style="width:140px;height:140px;border-radius:50%;border:4px solid #f97316;object-fit:cover">
+    <h2 style="color:#1e3a8a;margin-top:12px">Winnie Mukaria</h2>
+    <span style="background:#1e3a8a;color:white;padding:6px 16px;border-radius:20px;display:inline-block;margin-top:8px">Founder & CEO</span>
+    <div style="margin-top:20px;text-align:left;background:white;padding:16px;border-radius:12px">
+      <p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>Name:</b> Winnie Mukaria</p>
+      <p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>University:</b> University of Embu</p>
+      <p style="padding:8px 0;border-bottom:1px solid #f1f5f9"><b>Course:</b> Bachelor of Commerce</p>
+      <p style="padding:8px 0"><b>Year of Study:</b> Year 3</p>
+    </div>
+  </div>
+</div>
 
-<div id="tab-match" class="hidden"><h4 style="color:var(--blue)">Your Matches</h4><div class="feature">Based on your skills → 3 matches found! Check Opportunities tab.</div></div>
-
-<div id="tab-saved" class="hidden"><h4 style="color:var(--blue)">Saved</h4><p>Your saved opportunities will appear here.</p></div>
-
-<div id="tab-profile" class="hidden"><div style="text-align:center"><img src="winnie.jpg" onerror="this.src='https://via.placeholder.com/120?text=WM'" style="width:120px;height:120px;border-radius:50%;border:4px solid var(--orange);object-fit:cover"><h3 style="color:var(--blue)">Winnie Mukaria</h3><p><span style="background:var(--blue);color:white;padding:4px 10px;border-radius:12px">Founder & CEO</span></p><p style="font-size:13px;color:#555">Bachelor of Commerce, University of Embu.<br>Vision: Every Kenyan student connected to real opportunities.</p></div><div id="profileInfo" style="margin-top:12px;font-size:13px"></div></div>
+<div class="bottom-nav">
+  <button class="active tab-btn" data-goto="dashboard" onclick="showTab('dashboard')">🏠<span>Dashboard</span></button>
+  <button class="tab-btn" data-goto="opportunities" onclick="showTab('opportunities')">💼<span>Opportunities</span></button>
+  <button class="tab-btn" data-goto="matches" onclick="showTab('matches')">❤️<span>Matches</span></button>
+  <button class="tab-btn" data-goto="saved" onclick="showTab('saved')">🔖<span>Saved</span></button>
+  <button class="tab-btn" data-goto="profile" onclick="showTab('profile')">👤<span>Profile</span></button>
 </div>
 
 <script>
-let isLogin=true; const API="/api";
-function toggleAuth(){isLogin=!isLogin; loginForm.classList.toggle('hidden'); regForm.classList.toggle('hidden'); authTitle.innerText=isLogin?'Welcome back!':'Join CampusConnect'}
-async function doLogin(){let e=l_email.value,p=l_pass.value;msg.innerText='Logging in...';try{let r=await fetch(API+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,password:p})});let d=await r.json();if(r.ok){localStorage.setItem('user',JSON.stringify(d.user));showDash(d.user)}else msg.innerText=d.detail||'Login failed'}catch{msg.innerText='Backend error - check main.py'}}
-async function doReg(){let data={name:r_name.value,email:r_email.value,password:r_pass.value,university:r_uni.value,course:r_course.value,year:r_year.value,skills:r_skills.value,interests:r_interests.value};try{let r=await fetch(API+'/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});let d=await r.json();if(r.ok){localStorage.setItem('user',JSON.stringify(d.user));showDash(d.user)}else msg.innerText=d.detail}catch(e){msg.innerText='Register failed'}}
-function showDash(u){authView.classList.add('hidden');dashView.classList.remove('hidden');welcome.innerText='Welcome, '+(u.name||u.email)+'!';profileInfo.innerHTML=`<b>Name:</b> ${u.name}<br><b>Email:</b> ${u.email}<br><b>University:</b> ${u.university||'UoEm'}<br><b>Course:</b> ${u.course||'BCom'}<br><b>Year:</b> ${u.year||'1'}<br><b>Skills:</b> ${u.skills||''}`;fetch(API+'/').then(r=>r.json()).then(d=>apiStatus.innerText='Backend: ● Connected - Users: '+(d.users||1)).catch(()=>apiStatus.innerText='Backend: ● Connected')}
-function showTab(t){['home','opp','match','saved','profile'].forEach(x=>{document.getElementById('tab-'+x).classList.add('hidden');document.getElementById('b-'+x).classList.remove('active')});document.getElementById('tab-'+t).classList.remove('hidden');document.getElementById('b-'+t).classList.add('active')}
-function logout(){localStorage.clear();location.reload()}
-let saved=localStorage.getItem('user'); if(saved) showDash(JSON.parse(saved));
+let opportunities=[
+  {id:1,title:"Finance Intern - Equity Bank",location:"Nairobi • BCom students • Apply now",match:"95% Match"},
+  {id:2,title:"Marketing Assistant - Safaricom",location:"Remote • Year 2-4 • Marketing",match:"92% Match"},
+  {id:3,title:"IT Support Attaché - KCB Bank",location:"Embu • IT • Year 3",match:"88% Match"}
+];
+let saved=JSON.parse(localStorage.getItem('saved')||'[]');
+
+function showTab(name){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.goto===name));
+  if(name==='opportunities') renderOpps();
+  if(name==='matches') renderMatches();
+  if(name==='saved') renderSaved();
+}
+function renderOpps(){
+  document.getElementById('opportunities-list').innerHTML=opportunities.map(o=>`
+    <div class="card">
+      <b>${o.title}</b><br><small>${o.location}</small>
+      <button class="save-btn" onclick="saveOpp(${o.id})">Save Opportunity</button>
+    </div>
+  `).join('');
+}
+function renderMatches(){
+  document.getElementById('matches-list').innerHTML=opportunities.map(o=>`
+    <div class="card" style="border-left:4px solid #1e3a8a">
+      <b>${o.title}</b><br><small>${o.location}</small><br>
+      <span style="background:#dbeafe;color:#1e3a8a;padding:4px 10px;border-radius:12px;font-size:12px;display:inline-block;margin-top:6px">${o.match}</span>
+    </div>
+  `).join('');
+}
+function saveOpp(id){
+  if(!saved.includes(id)){saved.push(id);localStorage.setItem('saved',JSON.stringify(saved));alert('Saved! Go to Saved tab')}
+}
+function renderSaved(){
+  let c=document.getElementById('saved-list');
+  if(saved.length===0){c.innerHTML='<div class="card"><p>Your saved opportunities will appear here. Save some from Opportunities tab.</p></div>';return}
+  let list=opportunities.filter(o=>saved.includes(o.id));
+  c.innerHTML=list.map(o=>`<div class="card"><b>${o.title}</b><br><small>${o.location}</small></div>`).join('');
+}
+renderOpps();
 </script>
 </body>
 </html>
