@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CampusConnect Fixed</title>
+<title>CampusConnect - Winnie Mukaria CEO</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{background:#f1f5f9;padding-bottom:80px}
@@ -23,6 +23,7 @@ body{background:#f1f5f9;padding-bottom:80px}
 .nav button.active{color:#1e3a8a;font-weight:bold}
 .modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:99;display:none;padding:20px;overflow:auto}
 .modal.active{display:block}.modal-box{background:white;border-radius:16px;padding:20px;max-width:500px;margin:20px auto}
+.avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#1e3a8a,#f97316);color:white;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;margin:0 auto 10px}
 </style>
 </head>
 <body>
@@ -36,28 +37,27 @@ body{background:#f1f5f9;padding-bottom:80px}
 <button id="rE" class="role-btn" onclick="setRole('employer')">🏢 Employer</button>
 </div>
 <div id="sFields">
-<input id="nIn" class="input" placeholder="Full Name">
-<input id="uIn" class="input" placeholder="University">
-<select id="cIn" class="input"><option value="">Select Course</option><option>BCom</option><option>IT</option><option>Education</option><option>Engineering</option><option>BBIT</option><option>Marketing</option></select>
-<select id="yIn" class="input"><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option></select>
+<input id="nIn" class="input" placeholder="Full Name" value="Winnie Mukaria">
+<input id="uIn" class="input" placeholder="University" value="University of Embu">
+<select id="cIn" class="input"><option value="">Select Course</option><option selected>BCom</option><option>IT</option><option>Education</option><option>Engineering</option><option>BBIT</option><option>Marketing</option></select>
+<select id="yIn" class="input"><option selected>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option></select>
 </div>
 <div id="eFields" style="display:none">
 <input id="compIn" class="input" placeholder="Company Name">
-<input id="contactIn" class="input" placeholder="Contact Person">
+<input id="contactIn" class="input" placeholder="Contact Person" value="Winnie Mukaria">
 </div>
-<input id="eIn" class="input" placeholder="Email">
-<input id="pIn" type="password" class="input" placeholder="Password">
+<input id="eIn" class="input" placeholder="Email" value="winnie@campusconnect.com">
+<input id="pIn" type="password" class="input" placeholder="Password" value="123456">
 <button class="btn" onclick="doSignup()">Create Account →</button>
 <p style="text-align:center;margin-top:10px;font-size:13px">Have account? <b style="color:#1e3a8a;cursor:pointer" onclick="showLogin()">Login</b></p>
-<p style="text-align:center;margin-top:10px;font-size:11px;color:#999;cursor:pointer" onclick="hardReset()">⚠️ Blank before? Click here to Reset</p>
 </div>
 </div>
 
 <div id="login" class="tab">
 <div class="auth-box">
 <h2 style="color:#1e3a8a;text-align:center">Login</h2>
-<input id="le" class="input" placeholder="Email">
-<input id="lp" type="password" class="input" placeholder="Password">
+<input id="le" class="input" placeholder="Email" value="winnie@campusconnect.com">
+<input id="lp" type="password" class="input" placeholder="Password" value="123456">
 <button class="btn" onclick="doLogin()">Login →</button>
 <p style="text-align:center;margin-top:10px;font-size:13px" onclick="showSignup()"><b style="color:#1e3a8a;cursor:pointer">Signup</b></p>
 </div>
@@ -65,14 +65,44 @@ body{background:#f1f5f9;padding-bottom:80px}
 
 <div id="mainHeader" class="header" style="display:none"><div><b id="hName" style="color:#1e3a8a"></b><br><small id="hSub" style="color:#64748b"></small></div><button onclick="logout()" style="background:#fee2e2;color:#dc2626;border:none;padding:8px 12px;border-radius:20px;font-weight:bold">Logout</button></div>
 
-<div id="studentHome" class="tab"><div style="background:#1e3a8a;color:white;border-radius:16px;padding:20px"><h2>Hi, <span id="bName"></span> 👋</h2><p id="bCount"></p><button onclick="openTab('jobs')" style="background:white;color:#1e3a8a;border:none;padding:10px 16px;border-radius:20px;margin-top:10px;font-weight:bold">Browse Jobs</button></div></div>
+<div id="studentHome" class="tab">
+<div style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:white;border-radius:16px;padding:20px;text-align:center">
+<div class="avatar">WM</div>
+<h2 id="bNameFull">Winnie Mukaria</h2>
+<div style="background:#f97316;color:white;padding:4px 12px;border-radius:20px;display:inline-block;margin:6px 0;font-size:12px;font-weight:bold">👑 Founder & CEO</div>
+<p id="bUniCourse" style="margin-top:6px">University of Embu • Year 1 • Bachelor of Commerce</p>
+<p id="bCount" style="margin-top:8px;font-size:13px;opacity:0.9"></p>
+<button onclick="openTab('jobs')" style="background:white;color:#1e3a8a;border:none;padding:10px 16px;border-radius:20px;margin-top:12px;font-weight:bold">Browse Jobs →</button>
+</div>
+<div class="card" style="margin-top:12px"><b>📊 Your Impact</b><br><small id="impactText">Building jobs for Embu students</small></div>
+</div>
+
 <div id="jobs" class="tab"><h3 style="color:#1e3a8a;margin-bottom:10px">Jobs for <span id="jCourse"></span></h3><div id="jobsList" style="display:flex;flex-direction:column;gap:12px"></div></div>
 <div id="matches" class="tab"><h3 style="color:#1e3a8a">Best Matches</h3><div id="matchList" style="display:flex;flex-direction:column;gap:12px"></div></div>
 <div id="applied" class="tab"><h3 style="color:#1e3a8a">My Applications</h3><div id="appliedList" style="display:flex;flex-direction:column;gap:12px"></div></div>
-<div id="profile" class="tab"><div style="text-align:center;padding:20px"><h2 id="pName" style="color:#1e3a8a"></h2><div id="pBadge" style="background:#1e3a8a;color:white;padding:6px 14px;border-radius:20px;display:inline-block;margin-top:8px"></div><div style="background:white;padding:16px;border-radius:12px;margin-top:16px;text-align:left"><p><b>Name:</b> <span id="pdName"></span></p><p><b>Org:</b> <span id="pdUni"></span></p><p><b>Course/Role:</b> <span id="pdCourse"></span></p></div><button class="btn" onclick="openTab('studentHome')">Dashboard →</button></div></div>
+
+<div id="profile" class="tab">
+<div style="text-align:center;padding:20px">
+<div class="avatar" style="width:90px;height:90px;font-size:36px">WM</div>
+<h2 id="pName" style="color:#1e3a8a"></h2>
+<div id="pBadge" style="background:#f97316;color:white;padding:6px 14px;border-radius:20px;display:inline-block;margin-top:8px;font-weight:bold">👑 Founder & CEO</div>
+<div style="background:white;padding:16px;border-radius:12px;margin-top:16px;text-align:left">
+<p><b>Name:</b> <span id="pdName"></span></p>
+<p><b>Role:</b> Founder & CEO of CampusConnect</p>
+<p><b>University:</b> <span id="pdUni"></span></p>
+<p><b>Course:</b> Bachelor of Commerce (<span id="pdCourse"></span>)</p>
+<p><b>Year:</b> <span id="pdYear"></span></p>
+<p style="margin-top:8px;color:#64748b;font-size:13px">Building Kenya's #1 student opportunity platform from Embu.</p>
+</div>
+<button class="btn" onclick="openTab('studentHome')">Dashboard →</button>
+</div>
+</div>
 
 <div id="empDash" class="tab">
-<div style="background:#f97316;color:white;border-radius:16px;padding:20px"><h2>Employer Dashboard 🏢</h2><p>Post jobs → Students see instantly</p></div>
+<div style="background:#f97316;color:white;border-radius:16px;padding:20px;text-align:center">
+<div class="avatar" style="background:white;color:#f97316">WM</div>
+<h2>Employer Dashboard 🏢</h2><p>Winnie Mukaria • Founder</p>
+</div>
 <div class="card" style="margin-top:12px"><h3>Post New Opportunity</h3>
 <input id="jt" class="input" placeholder="Job Title e.g. Finance Intern">
 <input id="jc" class="input" placeholder="Company Name">
@@ -99,145 +129,4 @@ body{background:#f1f5f9;padding-bottom:80px}
 <button onclick="openTab('profile')" data="profile">👤<br>Profile</button>
 </div>
 
-<div id="detModal" class="modal"><div class="modal-box"><span style="float:right;font-size:24px;cursor:pointer" onclick="closeM('detModal')">×</span><h2 id="dt" style="color:#1e3a8a"></h2><div id="db" style="margin:8px 0"></div><p id="dl" style="color:#64748b"></p><p id="dd" style="margin:12px 0"></p><div style="background:#f8fafc;padding:12px;border-radius:8px"><b>Requirements:</b><br><span id="dr"></span></div><button class="btn-blue" onclick="openApply()">Apply Now →</button></div></div>
-<div id="appModal" class="modal"><div class="modal-box"><span style="float:right;font-size:24px;cursor:pointer" onclick="closeM('appModal')">×</span><h2 style="color:#1e3a8a">Apply for <span id="at"></span></h2><input id="an" class="input" placeholder="Full Name"><input id="ae" class="input" placeholder="Email"><input id="ap" class="input" placeholder="Phone"><input id="ask" class="input" placeholder="Skills"><textarea id="ac" class="input" rows="3" placeholder="Why hire you?"></textarea><input type="file" id="acv" class="input"><textarea id="ab" class="input" rows="2" placeholder="Short Bio"></textarea><button class="btn-blue" onclick="submitApp()">Submit ✅</button></div></div>
-
-<script>
-let role='student';
-let curU=null;
-let curJob=null;
-let defaultJobs=[{id:1,title:"Finance Intern - Equity Bank",company:"Equity Bank",location:"Nairobi",type:"Internship",forCourses:["BCom","BBIT"],desc:"3 months finance internship",req:"BCom, Excel"},{id:2,title:"Marketing Assistant",company:"Safaricom",location:"Remote",type:"Part-Time",forCourses:["BCom","Marketing"],desc:"20hrs/week remote marketing",req:"Marketing/BCom, Canva"},{id:3,title:"IT Support Attachment",company:"KCB",location:"Embu",type:"Attachment",forCourses:["IT","BBIT"],desc:"IT attachment",req:"IT Year 2+"}];
-function init(){
-try{
-if(!localStorage.getItem('allJobs')){localStorage.setItem('allJobs',JSON.stringify(defaultJobs));}
-let u=localStorage.getItem('currentUser');
-if(u){curU=JSON.parse(u); if(curU && curU.email){showApp();} else{localStorage.clear(); showAuth();}}
-else{showAuth();}
-}catch(e){localStorage.clear(); showAuth();}
-}
-function showAuth(){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('auth').classList.add('active');document.getElementById('mainHeader').style.display='none';document.getElementById('navS').style.display='none';document.getElementById('navE').style.display='none';}
-function setRole(r){role=r;document.getElementById('rS').classList.toggle('active',r==='student');document.getElementById('rE').classList.toggle('active',r==='employer');document.getElementById('sFields').style.display=r==='student'?'block':'none';document.getElementById('eFields').style.display=r==='employer'?'block':'none';}
-window.showLogin=function(){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('login').classList.add('active');}
-window.showSignup=function(){showAuth();}
-window.hardReset=function(){localStorage.clear();location.reload();}
-window.doSignup=function(){
-let email=document.getElementById('eIn').value.trim();
-let pass=document.getElementById('pIn').value.trim();
-if(!email||!pass){alert('Email & password needed');return;}
-let user={email,pass,role};
-if(role==='student'){
-let name=document.getElementById('nIn').value.trim();
-let uni=document.getElementById('uIn').value.trim();
-let course=document.getElementById('cIn').value;
-let year=document.getElementById('yIn').value;
-if(!name||!uni||!course){alert('Fill all student fields');return;}
-user.name=name;user.uni=uni;user.course=course;user.year=year;
-}else{
-let comp=document.getElementById('compIn').value.trim();
-let contact=document.getElementById('contactIn').value.trim();
-if(!comp||!contact){alert('Fill company');return;}
-user.name=contact;user.company=comp;user.uni=comp;user.course='Employer';
-}
-localStorage.setItem('user_'+email,JSON.stringify(user));
-localStorage.setItem('currentUser',JSON.stringify(user));
-curU=user;showApp();
-}
-window.doLogin=function(){
-let email=document.getElementById('le').value.trim();
-let pass=document.getElementById('lp').value.trim();
-let u=localStorage.getItem('user_'+email);
-if(!u){alert('No account with that email. Signup first.');return;}
-let user=JSON.parse(u);
-if(user.pass!==pass){alert('Wrong password');return;}
-localStorage.setItem('currentUser',JSON.stringify(user));
-curU=user;showApp();
-}
-function showApp(){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.getElementById('mainHeader').style.display='flex';
-document.getElementById('hName').innerText=curU.role==='employer'?curU.company:curU.name;
-document.getElementById('hSub').innerText=curU.role==='employer'?'Employer':curU.course;
-document.getElementById('pName').innerText=curU.role==='employer'?curU.company:curU.name;
-document.getElementById('pdName').innerText=curU.name;
-document.getElementById('pdUni').innerText=curU.uni;
-document.getElementById('pdCourse').innerText=curU.course+(curU.year?' • '+curU.year:'');
-document.getElementById('pBadge').innerText=curU.role==='employer'?curU.company:curU.course;
-if(curU.role==='employer'){
-document.getElementById('navE').style.display='flex';document.getElementById('navS').style.display='none';
-document.getElementById('empDash').classList.add('active');renderEmp();
-}else{
-document.getElementById('navS').style.display='flex';document.getElementById('navE').style.display='none';
-document.getElementById('studentHome').classList.add('active');
-document.getElementById('bName').innerText=curU.name.split(' ')[0];
-document.getElementById('jCourse').innerText=curU.course;
-let all=getAllJobs();let f=all.filter(j=>j.forCourses.includes(curU.course));if(f.length===0) f=all;
-document.getElementById('bCount').innerText='Found '+f.length+' jobs for '+curU.course;
-renderStudent();
-}
-}
-function getAllJobs(){return JSON.parse(localStorage.getItem('allJobs')||'[]');}
-function getFiltered(){let all=getAllJobs();let f=all.filter(j=>j.forCourses.includes(curU.course));return f.length?f:all;}
-window.openTab=function(id){
-document.querySelectorAll('.tab').forEach(t=>{if(t.id!=='auth'&&t.id!=='login') t.classList.remove('active');});
-let el=document.getElementById(id);if(el) el.classList.add('active');
-if(curU.role==='employer'&&id==='empDash') renderEmp();
-if(curU.role==='student'&&['jobs','matches','applied','studentHome'].includes(id)) renderStudent();
-}
-function renderStudent(){
-let filtered=getFiltered();
-document.getElementById('jobsList').innerHTML=filtered.map(j=>`<div class="card" onclick="openDet(${j.id})"><b>${j.title}</b><br><small>${j.company} • ${j.location}</small><br><span class="badge b-${j.type}">${j.type}</span><span class="badge" style="background:#dbeafe;color:#1e3a8a">90% Match</span><div style="margin-top:6px;color:#1e3a8a;font-weight:bold;font-size:13px">View & Apply →</div></div>`).join('');
-document.getElementById('matchList').innerHTML=filtered.map(j=>`<div class="card" onclick="openDet(${j.id})" style="border-left:4px solid #1e3a8a"><b>${j.title}</b> <span class="badge b-${j.type}">${j.type}</span><br><small>${j.company}</small></div>`).join('');
-let myApps=JSON.parse(localStorage.getItem('myApps')||'[]');
-document.getElementById('appliedList').innerHTML=myApps.length?myApps.map(a=>`<div class="card"><b>${a.title}</b><br><small>${a.company} • ${a.type} • ${a.date}</small><br><span style="background:#dcfce7;color:#166534;padding:4px 8px;border-radius:12px;font-size:11px">✅ Sent</span></div>`).join(''):'<div class="card">No applications yet</div>';
-}
-function renderEmp(){
-let all=getAllJobs();
-let myJobs=all.filter(j=>j.postedBy===curU.email);
-document.getElementById('myJCount').innerText=myJobs.length;
-document.getElementById('myJList').innerHTML=myJobs.length?myJobs.map(j=>`<div class="card"><b>${j.title}</b> <span class="badge b-${j.type}">${j.type}</span><br><small>${j.location} • For ${j.forCourses.join(', ')}</small></div>`).join(''):'<div class="card">No jobs yet</div>';
-let allApps=JSON.parse(localStorage.getItem('allApps')||'[]');
-let myApps=allApps.filter(a=>myJobs.some(j=>j.id===a.jobId));
-document.getElementById('appC').innerText=myApps.length;
-document.getElementById('allAppList').innerHTML=myApps.length?myApps.map(a=>`<div class="card"><b>${a.studentName}</b> applied for ${a.title}<br><small>${a.email} • ${a.phone}<br>Skills: ${a.skills}<br>CV: ${a.cvName}</small></div>`).join(''):'<div class="card">No applications yet</div>';
-}
-window.postJob=function(){
-let title=document.getElementById('jt').value.trim();
-let company=document.getElementById('jc').value.trim()||curU.company;
-let type=document.getElementById('jtype').value;
-let forC=document.getElementById('jfor').value.split(',').map(s=>s.trim());
-let loc=document.getElementById('jloc').value.trim();
-let desc=document.getElementById('jd').value.trim();
-let req=document.getElementById('jr').value.trim();
-if(!title||!loc||!desc){alert('Fill title, location, desc');return;}
-let all=getAllJobs();
-let nj={id:Date.now(),title,company,location:loc,type,forCourses:forC,desc,req,postedBy:curU.email};
-all.unshift(nj);localStorage.setItem('allJobs',JSON.stringify(all));
-alert('Posted! Students see it now!');document.getElementById('jt').value='';document.getElementById('jd').value='';document.getElementById('jr').value='';renderEmp();
-}
-window.openDet=function(id){
-let all=getAllJobs();curJob=all.find(j=>j.id===id);
-document.getElementById('dt').innerText=curJob.title;
-document.getElementById('db').innerHTML=`<span class="badge b-${curJob.type}">${curJob.type}</span>`;
-document.getElementById('dl').innerText=curJob.company+' • '+curJob.location+' • For '+curJob.forCourses.join(', ');
-document.getElementById('dd').innerText=curJob.desc;
-document.getElementById('dr').innerText=curJob.req;
-document.getElementById('detModal').classList.add('active');
-}
-window.openApply=function(){closeM('detModal');document.getElementById('at').innerText=curJob.title;document.getElementById('an').value=curU.name;document.getElementById('appModal').classList.add('active');}
-window.closeM=function(id){document.getElementById(id).classList.remove('active');}
-window.submitApp=function(){
-let email=document.getElementById('ae').value.trim();
-let phone=document.getElementById('ap').value.trim();
-let skills=document.getElementById('ask').value.trim();
-let cv=document.getElementById('acv').files[0];
-if(!email||!phone||!skills){alert('Fill email phone skills');return;}
-let app={jobId:curJob.id,title:curJob.title,company:curJob.company,type:curJob.type,date:new Date().toLocaleDateString(),studentName:curU.name,email,phone,skills,cvName:cv?cv.name:'CV.pdf',bio:document.getElementById('ab').value};
-let myApps=JSON.parse(localStorage.getItem('myApps')||'[]');myApps.push(app);localStorage.setItem('myApps',JSON.stringify(myApps));
-let allApps=JSON.parse(localStorage.getItem('allApps')||'[]');allApps.push(app);localStorage.setItem('allApps',JSON.stringify(allApps));
-alert('Application sent to '+curJob.company);closeM('appModal');openTab('applied');renderStudent();
-}
-window.logout=function(){localStorage.removeItem('currentUser');location.reload();}
-init();
-</script>
-</body>
-  </html>
+<div id="detModal" class="modal"><div class="modal-box"><span style="float:right;font-size:24px;cursor:pointer" onclick="closeM('detModal')">×</span><h2 id="dt" style="color:#1e3a8a"></h2><div id="db" style="margin:8px 0"></div
