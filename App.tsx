@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 export default function App() {
   const [showRoles, setShowRoles] = useState(false);
 
+  const enterCampusConnect = () => {
+    setShowRoles(true);
+
+    setTimeout(() => {
+      document.getElementById("roles")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
   useEffect(() => {
     const handleEnter = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
-        setShowRoles(true);
-
-        setTimeout(() => {
-          document.getElementById("roles")?.scrollIntoView({
-            behavior: "smooth",
-          });
-        }, 50);
+        enterCampusConnect();
       }
     };
 
@@ -23,199 +27,191 @@ export default function App() {
     };
   }, []);
 
-  const enterCampusConnect = () => {
-    setShowRoles(true);
-
-    setTimeout(() => {
-      document.getElementById("roles")?.scrollIntoView({
-        behavior: "smooth",
-      });
-    }, 50);
-  };
-
   return (
     <div
       style={{
         minHeight: "100vh",
-        background: "#eff6ff",
+        background: "#f4f6fb",
         fontFamily: "Arial, sans-serif",
-        textAlign: "center",
-        paddingBottom: "100px",
       }}
     >
-      {/* BRANDING */}
-      <h1
-        style={{
-          paddingTop: "30px",
-          color: "#1e40af",
-          fontSize: "28px",
-          fontWeight: "bold",
-          marginBottom: "5px",
-        }}
-      >
-        CAMPUS CONNECT 🎓
-      </h1>
-
-      <p
-        style={{
-          color: "#f97316",
-          fontWeight: "bold",
-          marginTop: "0",
-        }}
-      >
-        Connecting Students to Opportunities
-      </p>
-
-      {/* FOUNDER CARD */}
+      {/* TOP FOUNDER SECTION */}
       <div
         style={{
-          background: "white",
-          width: "90%",
-          maxWidth: "360px",
-          margin: "25px auto",
-          padding: "25px",
-          borderRadius: "20px",
-          boxShadow: "0 8px 20px rgba(0,0,0,.08)",
-          border: "2px solid #dbeafe",
-          boxSizing: "border-box",
+          background: "linear-gradient(135deg, #2457d6, #315fe0)",
+          color: "white",
+          textAlign: "center",
+          padding: "40px 20px 55px",
         }}
       >
         <img
           src="/founder.jpg"
           alt="Winnie Mukaria"
           style={{
-            width: "130px",
-            height: "130px",
+            width: "150px",
+            height: "150px",
             borderRadius: "50%",
             objectFit: "cover",
-            margin: "0 auto",
+            border: "5px solid white",
             display: "block",
-            border: "4px solid #2563eb",
-            boxShadow: "0 0 0 4px #fed7aa",
+            margin: "0 auto 18px",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
           }}
         />
 
-        <h2
+        <h1
           style={{
-            marginTop: "15px",
-            marginBottom: "5px",
-            color: "#1e293b",
+            margin: "0",
+            fontSize: "30px",
+            fontWeight: "bold",
           }}
         >
           Winnie Mukaria
+        </h1>
+
+        <div
+          style={{
+            display: "inline-block",
+            marginTop: "12px",
+            background: "#ff8a18",
+            padding: "8px 18px",
+            borderRadius: "25px",
+            fontWeight: "bold",
+          }}
+        >
+          👑 Founder & CEO
+        </div>
+
+        <p
+          style={{
+            marginTop: "18px",
+            fontSize: "14px",
+            fontWeight: "bold",
+          }}
+        >
+          University of Embu • Year 1 • BCom • Email Notify ON
+        </p>
+
+        <div
+          style={{
+            maxWidth: "400px",
+            margin: "20px auto 0",
+            background: "rgba(255,255,255,0.18)",
+            padding: "15px",
+            borderRadius: "15px",
+            textAlign: "left",
+            lineHeight: "1.6",
+            fontSize: "13px",
+          }}
+        >
+          CampusConnect – Kenya's #1 student platform with EMAIL
+          alerts! Students get email when new Job posted, Employers get
+          email when CV uploaded. CEO gets all alerts.
+        </div>
+      </div>
+
+      {/* WELCOME CARD */}
+      <div
+        style={{
+          width: "88%",
+          maxWidth: "470px",
+          margin: "-25px auto 40px",
+          background: "white",
+          borderRadius: "22px",
+          padding: "28px 20px",
+          boxSizing: "border-box",
+          textAlign: "center",
+          boxShadow: "0 8px 25px rgba(0,0,0,0.08)",
+          position: "relative",
+        }}
+      >
+        <h2
+          style={{
+            margin: "0",
+            color: "#25477b",
+            fontSize: "23px",
+          }}
+        >
+          Welcome to CampusConnect
         </h2>
 
         <p
           style={{
-            color: "#2563eb",
-            fontWeight: "bold",
-            margin: "0",
+            color: "#777",
+            marginTop: "8px",
+            fontSize: "13px",
           }}
         >
-          Founder & CEO
+          Founded by Winnie Mukaria
         </p>
+
+        <div
+          style={{
+            background: "#fffbea",
+            borderLeft: "5px solid #f59e0b",
+            padding: "15px 12px",
+            borderRadius: "12px",
+            marginTop: "20px",
+            textAlign: "left",
+            fontSize: "13px",
+            color: "#333",
+          }}
+        >
+          ⭐ "Uploaded CV for 50, got 3 Interviews in 1 week – Faith,
+          BCom"
+          <br />
+          <span style={{ color: "#999", fontSize: "11px" }}>
+            2/5 • Changes every 5s
+          </span>
+        </div>
+
+        {/* ENTER BUTTON */}
+        <button
+          type="button"
+          onClick={enterCampusConnect}
+          style={{
+            width: "100%",
+            marginTop: "18px",
+            padding: "17px",
+            border: "none",
+            borderRadius: "15px",
+            background: "#ff7a16",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "16px",
+            cursor: "pointer",
+            boxShadow: "0 4px 10px rgba(255,122,22,0.3)",
+          }}
+        >
+          Enter CampusConnect →
+        </button>
 
         <p
           style={{
-            color: "#64748b",
-            fontSize: "14px",
-            marginTop: "10px",
+            fontSize: "10px",
+            color: "#aaa",
+            marginTop: "12px",
+            marginBottom: "0",
           }}
         >
-          Building the future for students in Kenya and beyond
+          📧 Email notifications + M-Pesa 0705991406
         </p>
-
-        {/* TEAM */}
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            justifyContent: "center",
-            marginTop: "20px",
-          }}
-        >
-          <div
-            style={{
-              background: "#eff6ff",
-              padding: "10px",
-              borderRadius: "12px",
-              width: "75px",
-              border: "1px solid #bfdbfe",
-            }}
-          >
-            👩‍💼
-            <br />
-            <small style={{ color: "#1e40af" }}>Staff</small>
-          </div>
-
-          <div
-            style={{
-              background: "#fff7ed",
-              padding: "10px",
-              borderRadius: "12px",
-              width: "75px",
-              border: "1px solid #fed7aa",
-            }}
-          >
-            👨‍💼
-            <br />
-            <small style={{ color: "#f97316" }}>Staff</small>
-          </div>
-
-          <div
-            style={{
-              background: "#eff6ff",
-              padding: "10px",
-              borderRadius: "12px",
-              width: "75px",
-              border: "1px solid #bfdbfe",
-            }}
-          >
-            👩‍💼
-            <br />
-            <small style={{ color: "#1e40af" }}>Staff</small>
-          </div>
-        </div>
       </div>
 
-      {/* ENTER BUTTON */}
-      {!showRoles && (
-        <button
-          onClick={enterCampusConnect}
-          type="button"
-          style={{
-            position: "fixed",
-            bottom: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "#f97316",
-            color: "white",
-            padding: "16px 70px",
-            borderRadius: "30px",
-            border: "none",
-            fontWeight: "bold",
-            fontSize: "18px",
-            boxShadow: "0 4px 15px rgba(249,115,22,.4)",
-            cursor: "pointer",
-            zIndex: 1000,
-          }}
-        >
-          ENTER →
-        </button>
-      )}
-
-      {/* ROLE SELECTION */}
+      {/* ROLE SELECTION AFTER ENTER */}
       {showRoles && (
         <div
           id="roles"
           style={{
-            marginTop: "60px",
-            padding: "20px",
+            width: "90%",
+            maxWidth: "470px",
+            margin: "0 auto 50px",
+            textAlign: "center",
           }}
         >
-          <h2 style={{ color: "#1e40af" }}>Choose Your Role</h2>
+          <h2 style={{ color: "#25477b" }}>Choose Your Role</h2>
 
-          <p style={{ color: "#64748b" }}>
+          <p style={{ color: "#777" }}>
             Select how you want to continue
           </p>
 
@@ -224,12 +220,11 @@ export default function App() {
             style={{
               display: "block",
               background: "white",
-              margin: "15px auto",
-              padding: "20px",
-              maxWidth: "320px",
+              padding: "18px",
+              margin: "15px 0",
               borderRadius: "15px",
               textDecoration: "none",
-              color: "#1e40af",
+              color: "#2457d6",
               fontWeight: "bold",
               border: "2px solid #dbeafe",
             }}
@@ -242,12 +237,11 @@ export default function App() {
             style={{
               display: "block",
               background: "white",
-              margin: "15px auto",
-              padding: "20px",
-              maxWidth: "320px",
+              padding: "18px",
+              margin: "15px 0",
               borderRadius: "15px",
               textDecoration: "none",
-              color: "#f97316",
+              color: "#ff7a16",
               fontWeight: "bold",
               border: "2px solid #fed7aa",
             }}
