@@ -67,7 +67,7 @@ export default function App() {
             height: "150px",
             borderRadius: "50%",
             objectFit: "cover",
-            border: "5px solid white",
+            border: "5px solid 2563eb",
             display: "block",
             margin: "0 auto 18px",
             boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
