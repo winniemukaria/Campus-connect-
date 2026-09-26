@@ -3,19 +3,28 @@ import { useEffect, useState } from "react";
 export default function App() {
   const [showRoles, setShowRoles] = useState(false);
 
+  // ENTER CAMPUSCONNECT
   const enterCampusConnect = () => {
     setShowRoles(true);
-
-    setTimeout(() => {
-      document.getElementById("roles")?.scrollIntoView({
-        behavior: "smooth",
-      });
-    }, 100);
   };
 
+  // After the role section appears, scroll to it
+  useEffect(() => {
+    if (showRoles) {
+      setTimeout(() => {
+        document.getElementById("roles")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    }
+  }, [showRoles]);
+
+  // Allow the visitor to press ENTER on the keyboard
   useEffect(() => {
     const handleEnter = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
+        event.preventDefault();
         enterCampusConnect();
       }
     };
@@ -33,9 +42,14 @@ export default function App() {
         minHeight: "100vh",
         background: "#f4f6fb",
         fontFamily: "Arial, sans-serif",
+        margin: 0,
+        padding: 0,
       }}
     >
-      {/* TOP FOUNDER SECTION */}
+      {/* =========================
+          FIRST PAGE / FOUNDER
+      ========================== */}
+
       <div
         style={{
           background: "linear-gradient(135deg, #2457d6, #315fe0)",
@@ -44,9 +58,10 @@ export default function App() {
           padding: "40px 20px 55px",
         }}
       >
+        {/* FOUNDER PHOTO */}
         <img
           src="/founder.jpg"
-          alt="Winnie Mukaria"
+          alt="Winnie Mukaria - Founder and CEO"
           style={{
             width: "150px",
             height: "150px",
@@ -59,6 +74,7 @@ export default function App() {
           }}
         />
 
+        {/* FOUNDER NAME */}
         <h1
           style={{
             margin: "0",
@@ -69,6 +85,7 @@ export default function App() {
           Winnie Mukaria
         </h1>
 
+        {/* FOUNDER TITLE */}
         <div
           style={{
             display: "inline-block",
@@ -82,6 +99,7 @@ export default function App() {
           👑 Founder & CEO
         </div>
 
+        {/* FOUNDER INFORMATION */}
         <p
           style={{
             marginTop: "18px",
@@ -92,6 +110,7 @@ export default function App() {
           University of Embu • Year 1 • BCom • Email Notify ON
         </p>
 
+        {/* CAMPUSCONNECT DESCRIPTION */}
         <div
           style={{
             maxWidth: "400px",
@@ -110,7 +129,10 @@ export default function App() {
         </div>
       </div>
 
-      {/* WELCOME CARD */}
+      {/* =========================
+          WELCOME CARD
+      ========================== */}
+
       <div
         style={{
           width: "88%",
@@ -145,6 +167,7 @@ export default function App() {
           Founded by Winnie Mukaria
         </p>
 
+        {/* TESTIMONIAL */}
         <div
           style={{
             background: "#fffbea",
@@ -160,15 +183,24 @@ export default function App() {
           ⭐ "Uploaded CV for 50, got 3 Interviews in 1 week – Faith,
           BCom"
           <br />
-          <span style={{ color: "#999", fontSize: "11px" }}>
+          <span
+            style={{
+              color: "#999",
+              fontSize: "11px",
+            }}
+          >
             2/5 • Changes every 5s
           </span>
         </div>
 
-        {/* ENTER BUTTON */}
+        {/* =========================
+            ENTER BUTTON
+        ========================== */}
+
         <button
           type="button"
           onClick={enterCampusConnect}
+          aria-label="Enter CampusConnect"
           style={{
             width: "100%",
             marginTop: "18px",
@@ -181,6 +213,7 @@ export default function App() {
             fontSize: "16px",
             cursor: "pointer",
             boxShadow: "0 4px 10px rgba(255,122,22,0.3)",
+            WebkitTapHighlightColor: "transparent",
           }}
         >
           Enter CampusConnect →
@@ -198,52 +231,79 @@ export default function App() {
         </p>
       </div>
 
-      {/* ROLE SELECTION AFTER ENTER */}
+      {/* =========================
+          ROLE SELECTION
+      ========================== */}
+
       {showRoles && (
         <div
           id="roles"
           style={{
             width: "90%",
             maxWidth: "470px",
-            margin: "0 auto 50px",
+            margin: "0 auto 60px",
             textAlign: "center",
           }}
         >
-          <h2 style={{ color: "#25477b" }}>Choose Your Role</h2>
+          <h2
+            style={{
+              color: "#25477b",
+              fontSize: "25px",
+              marginBottom: "8px",
+            }}
+          >
+            Choose Your Role
+          </h2>
 
-          <p style={{ color: "#777" }}>
+          <p
+            style={{
+              color: "#777",
+              fontSize: "14px",
+              marginBottom: "20px",
+            }}
+          >
             Select how you want to continue
           </p>
 
+          {/* STUDENT */}
           <a
             href="https://campusconnect.indevs.in"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "block",
               background: "white",
-              padding: "18px",
+              padding: "20px",
               margin: "15px 0",
               borderRadius: "15px",
               textDecoration: "none",
               color: "#2457d6",
               fontWeight: "bold",
+              fontSize: "16px",
               border: "2px solid #dbeafe",
+              boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
             }}
           >
             🎓 I'm a Student
           </a>
 
+          {/* EMPLOYER */}
           <a
             href="https://campusconnect.indevs.in"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "block",
               background: "white",
-              padding: "18px",
+              padding: "20px",
               margin: "15px 0",
               borderRadius: "15px",
               textDecoration: "none",
               color: "#ff7a16",
               fontWeight: "bold",
+              fontSize: "16px",
               border: "2px solid #fed7aa",
+              boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
             }}
           >
             💼 I'm an Employer
